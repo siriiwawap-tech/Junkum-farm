@@ -300,7 +300,7 @@
                         <th>สถานะ API<br>(API Status)</th>
                         <th>ค่าข้อมูล<br>(Data Value)</th>
                         <th>หมายเหตุ<br>(Notes)</th>
-                        <th>LINE<br>Notify</th>
+                        <th>แจ้งเตือน<br>LINE</th>
                         <th>การกระทำ<br>(Action)</th>
                     </tr>
                 </thead>
@@ -338,6 +338,7 @@
                     <option value="อุณหภูมิ">อุณหภูมิ (Temperature)</option>
                     <option value="น้ำหนัก">น้ำหนัก (Weight)</option>
                     <option value="สุขภาพ">สุขภาพ (Health)</option>
+                    <option value="แผนงาน">แผนงาน (Plan)</option>
                     <option value="อื่นๆ">อื่นๆ (Other)</option>
                 </select>
             </div>
@@ -357,24 +358,64 @@
                 <label for="newNotes">หมายเหตุ (Notes)</label>
                 <input type="text" id="newNotes" placeholder="หมายเหตุเพิ่มเติม">
             </div>
-            <button class="submit-btn" onclick="addNewRow()">➕ เพิ่มข้อมูลใหม่ (Add Data)</button>
+            <div class="form-group">
+                <label for="newRemindAt">📅 แจ้งเตือนล่วงหน้า (Remind At)</label>
+                <input type="datetime-local" id="newRemindAt">
+            </div>
+            <div class="form-group">
+                <label for="newGroupId">LINE Group ID (ถ้าต่างจาก default)</label>
+                <input type="text" id="newGroupId" placeholder="C... หรือ ว่างไว้ใช้ default">
+            </div>
+            <button class="submit-btn" onclick="addNewRow()">➕ เพิ่มข้อมูล + ส่ง LINE</button>
+        </div>
+
+        <div style="padding: 16px 30px; background: #fff8e1; border-top: 1px solid #ffe082; font-size: 13px; color: #795548;">
+            <strong>📋 วิธีตั้ง Vercel Env Vars:</strong>
+            <code style="background:#f5f5f5; padding:2px 8px; border-radius:4px; margin:0 4px;">LINE_CHANNEL_ACCESS_TOKEN</code> และ
+            <code style="background:#f5f5f5; padding:2px 8px; border-radius:4px; margin:0 4px;">LINE_GROUP_ID</code>
+            → Vercel Dashboard → Project → Settings → Environment Variables
         </div>
     </div>
 
     <script>
-        // LINE Notify via Vercel serverless function
-        async function sendLineNotify(message) {
+        // LINE Messaging API via Vercel serverless function
+        async function sendLineMessage(message, groupId) {
             try {
+                const body = { message };
+                if (groupId) body.to = groupId;
                 const res = await fetch('/api/notify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message }),
+                    body: JSON.stringify(body),
                 });
                 const data = await res.json();
                 return res.ok ? { ok: true } : { ok: false, error: data.error };
             } catch (e) {
                 return { ok: false, error: e.message };
             }
+        }
+
+        // Reminder scheduler — ใช้ setTimeout ส่งเมื่อถึงเวลา (ทำงานตลอดที่เปิดแท็บ)
+        const scheduledReminders = {};
+
+        function scheduleReminder(record) {
+            if (!record.remindAt) return;
+            const delay = new Date(record.remindAt).getTime() - Date.now();
+            if (delay <= 0) return;
+
+            scheduledReminders[record.id] = setTimeout(async () => {
+                const msg = buildReminderMessage(record);
+                const result = await sendLineMessage(msg, record.groupId || null);
+                record.lineNotified = result.ok ? 'sent' : 'failed';
+                filteredData = [...dataRecords];
+                renderTable();
+                showToast(result.ok ? '🟢 ส่งแจ้งเตือน LINE แล้ว!' : `LINE Error: ${result.error}`, result.ok ? 'line' : 'error');
+            }, delay);
+        }
+
+        function buildReminderMessage(record) {
+            const remind = record.remindAt ? `\n📅 กำหนดแจ้งเตือน: ${new Date(record.remindAt).toLocaleString('th-TH')}` : '';
+            return `🌾 Junkum Farm - แจ้งเตือนงาน\n━━━━━━━━━━━━━━━\n👤 ผู้บันทึก: ${record.user}\n📋 ประเภท: ${record.type}\n📊 ค่า: ${record.value}\n📝 หมายเหตุ: ${record.notes || '-'}${remind}\n🕐 บันทึกเมื่อ: ${record.timestamp}`;
         }
 
         function showToast(msg, type = 'success') {
@@ -384,15 +425,15 @@
             toast.className = `toast ${type}`;
             toast.textContent = msg;
             document.body.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3500);
         }
 
         async function testLineNotify() {
             const statusEl = document.getElementById('lineStatus');
-            statusEl.textContent = '🟡 กำลังส่ง LINE Notify...';
-            const result = await sendLineNotify('\n🌾 Junkum Farm - ทดสอบการแจ้งเตือน\nระบบ Data Tracking เชื่อมต่อ LINE สำเร็จ!');
+            statusEl.textContent = '🟡 กำลังส่ง LINE...';
+            const result = await sendLineMessage('🌾 Junkum Farm\nทดสอบการแจ้งเตือนผ่าน LINE Messaging API สำเร็จ!');
             if (result.ok) {
-                statusEl.textContent = '🟢 LINE Notify เชื่อมต่อสำเร็จ!';
+                statusEl.textContent = '🟢 LINE Messaging API เชื่อมต่อสำเร็จ!';
                 showToast('🟢 ส่ง LINE สำเร็จ!', 'line');
             } else {
                 statusEl.textContent = `🔴 LINE Error: ${result.error}`;
@@ -425,8 +466,13 @@
                     error: '✗ ข้อผิดพลาด'
                 }[record.status];
 
-                const lineLabel = { sent: '🟢 ส่งแล้ว', sending: '🟡 กำลังส่ง', failed: '🔴 ล้มเหลว', none: '⚪ ไม่ส่ง' }[record.lineNotified] || '⚪';
-                const lineClass = { sent: 'sent', sending: 'sending', failed: 'failed', none: '' }[record.lineNotified] || '';
+                const remindLabel = record.remindAt ? `\n📅 ${new Date(record.remindAt).toLocaleString('th-TH', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}` : '';
+                const lineLabel = {
+                    sent: '🟢 ส่งแล้ว', sending: '🟡 กำลังส่ง',
+                    failed: '🔴 ล้มเหลว', none: '⚪ ไม่ส่ง',
+                    scheduled: `📅 ตั้งเวลา${remindLabel}`
+                }[record.lineNotified] || '⚪';
+                const lineClass = { sent: 'sent', sending: 'sending', failed: 'failed', scheduled: 'sending', none: '' }[record.lineNotified] || '';
 
                 row.innerHTML = `
                     <td>${record.id}</td>
@@ -482,9 +528,11 @@
             const value = document.getElementById('newValue').value;
             const endpoint = document.getElementById('newEndpoint').value;
             const notes = document.getElementById('newNotes').value;
+            const remindAt = document.getElementById('newRemindAt').value;
+            const groupId = document.getElementById('newGroupId').value.trim();
 
             if (!user || !value || !endpoint) {
-                alert('กรุณากรอกข้อมูลให้ครบ (Please fill all required fields)');
+                showToast('กรุณากรอก ผู้บันทึก, ค่าข้อมูล, Endpoint', 'error');
                 return;
             }
 
@@ -500,27 +548,31 @@
                 status: 'pending',
                 value,
                 notes,
-                lineNotified: 'sending'
+                remindAt: remindAt || null,
+                groupId: groupId || null,
+                lineNotified: remindAt ? 'scheduled' : 'sending'
             };
 
             dataRecords.push(newRecord);
             filteredData = [...dataRecords];
             clearForm();
             renderTable();
-            showToast('✓ เพิ่มข้อมูลสำเร็จ', 'success');
 
-            // Send LINE Notify automatically
-            const lineMsg = `\n🌾 Junkum Farm - บันทึกข้อมูลใหม่\n👤 ผู้บันทึก: ${user}\n📋 ประเภท: ${type}\n📊 ค่า: ${value}\n📍 Endpoint: ${endpoint}\n🕐 เวลา: ${now}\n📝 หมายเหตุ: ${notes || '-'}`;
-            sendLineNotify(lineMsg).then(result => {
-                newRecord.lineNotified = result.ok ? 'sent' : 'failed';
-                filteredData = [...dataRecords];
-                renderTable();
-                if (result.ok) {
-                    showToast('🟢 ส่ง LINE สำเร็จ!', 'line');
-                } else {
-                    showToast(`LINE Error: ${result.error}`, 'error');
-                }
-            });
+            if (remindAt) {
+                // ตั้งเวลาแจ้งเตือนล่วงหน้า
+                const remindDate = new Date(remindAt).toLocaleString('th-TH');
+                scheduleReminder(newRecord);
+                showToast(`📅 ตั้งแจ้งเตือน LINE วันที่ ${remindDate}`, 'line');
+            } else {
+                // ส่งทันที
+                const lineMsg = buildReminderMessage(newRecord);
+                sendLineMessage(lineMsg, groupId || null).then(result => {
+                    newRecord.lineNotified = result.ok ? 'sent' : 'failed';
+                    filteredData = [...dataRecords];
+                    renderTable();
+                    showToast(result.ok ? '🟢 ส่ง LINE สำเร็จ!' : `LINE Error: ${result.error}`, result.ok ? 'line' : 'error');
+                });
+            }
         }
 
         function clearForm() {
@@ -528,6 +580,8 @@
             document.getElementById('newValue').value = '';
             document.getElementById('newEndpoint').value = '';
             document.getElementById('newNotes').value = '';
+            document.getElementById('newRemindAt').value = '';
+            document.getElementById('newGroupId').value = '';
         }
 
         function deleteRow(id) {
