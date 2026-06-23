@@ -216,6 +216,40 @@
         .submit-btn:hover {
             background: #2D6A4F !important;
         }
+        .line-status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .line-status.sending {
+            background: #e8f4fd;
+            color: #1a73e8;
+        }
+        .line-status.sent {
+            background: #d4edda;
+            color: #155724;
+        }
+        .line-status.failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            z-index: 9999;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: opacity 0.3s;
+        }
+        .toast.success { background: #2D6A4F; }
+        .toast.error { background: #dc3545; }
+        .toast.line { background: #06c755; }
         @media print {
             body {
                 background: white;
@@ -230,7 +264,8 @@
     <div class="container">
         <header>
             <h1>🌾 Junkum Farm Data Tracking Sheet</h1>
-            <p>ระบบติดตามข้อมูล - การบันทึกข้อมูลพร้อมการเชื่อมต่อ API</p>
+            <p>ระบบติดตามข้อมูล - การบันทึกข้อมูลพร้อมการเชื่อมต่อ API + LINE Notify</p>
+            <div id="lineStatus" style="margin-top:10px; font-size:13px; opacity:0.85;"></div>
         </header>
 
         <div class="controls">
@@ -250,6 +285,7 @@
             <button onclick="exportToCSV()">📥 ส่งออก CSV</button>
             <button onclick="printTable()">🖨️ พิมพ์</button>
             <button onclick="refreshData()">🔄 รีเฟรช</button>
+            <button onclick="testLineNotify()" style="background:#06c755;">🟢 ทดสอบ LINE</button>
         </div>
 
         <div class="table-wrapper">
@@ -264,6 +300,7 @@
                         <th>สถานะ API<br>(API Status)</th>
                         <th>ค่าข้อมูล<br>(Data Value)</th>
                         <th>หมายเหตุ<br>(Notes)</th>
+                        <th>LINE<br>Notify</th>
                         <th>การกระทำ<br>(Action)</th>
                     </tr>
                 </thead>
@@ -325,58 +362,51 @@
     </div>
 
     <script>
+        // LINE Notify via Vercel serverless function
+        async function sendLineNotify(message) {
+            try {
+                const res = await fetch('/api/notify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message }),
+                });
+                const data = await res.json();
+                return res.ok ? { ok: true } : { ok: false, error: data.error };
+            } catch (e) {
+                return { ok: false, error: e.message };
+            }
+        }
+
+        function showToast(msg, type = 'success') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        async function testLineNotify() {
+            const statusEl = document.getElementById('lineStatus');
+            statusEl.textContent = '🟡 กำลังส่ง LINE Notify...';
+            const result = await sendLineNotify('\n🌾 Junkum Farm - ทดสอบการแจ้งเตือน\nระบบ Data Tracking เชื่อมต่อ LINE สำเร็จ!');
+            if (result.ok) {
+                statusEl.textContent = '🟢 LINE Notify เชื่อมต่อสำเร็จ!';
+                showToast('🟢 ส่ง LINE สำเร็จ!', 'line');
+            } else {
+                statusEl.textContent = `🔴 LINE Error: ${result.error}`;
+                showToast(`LINE Error: ${result.error}`, 'error');
+            }
+        }
+
         // Sample data
         let dataRecords = [
-            {
-                id: 1,
-                type: "อาหาร",
-                user: "สมชาย",
-                timestamp: "2024-06-23 09:30",
-                endpoint: "/api/data/feed",
-                status: "success",
-                value: "50 kg",
-                notes: "อาหารไก่ตอนเช้า"
-            },
-            {
-                id: 2,
-                type: "น้ำ",
-                user: "สนใจ",
-                timestamp: "2024-06-23 10:15",
-                endpoint: "/api/data/water",
-                status: "success",
-                value: "100 L",
-                notes: "เปลี่ยนน้ำสะอาด"
-            },
-            {
-                id: 3,
-                type: "อุณหภูมิ",
-                user: "กิจเก็จ",
-                timestamp: "2024-06-23 11:00",
-                endpoint: "/api/data/temperature",
-                status: "success",
-                value: "28.5°C",
-                notes: "บันทึกอุณหภูมิห้องไก่"
-            },
-            {
-                id: 4,
-                type: "น้ำหนัก",
-                user: "สมชาย",
-                timestamp: "2024-06-23 12:30",
-                endpoint: "/api/data/weight",
-                status: "pending",
-                value: "45 kg",
-                notes: "เพิ่มรายการใหม่"
-            },
-            {
-                id: 5,
-                type: "สุขภาพ",
-                user: "สนใจ",
-                timestamp: "2024-06-23 14:00",
-                endpoint: "/api/data/health",
-                status: "error",
-                value: "ผิดปกติ",
-                notes: "พบโรคที่ไก่ตัวที่ 5"
-            }
+            { id: 1, type: "อาหาร", user: "สมชาย", timestamp: "2024-06-23 09:30", endpoint: "/api/data/feed", status: "success", value: "50 kg", notes: "อาหารไก่ตอนเช้า", lineNotified: "sent" },
+            { id: 2, type: "น้ำ", user: "สนใจ", timestamp: "2024-06-23 10:15", endpoint: "/api/data/water", status: "success", value: "100 L", notes: "เปลี่ยนน้ำสะอาด", lineNotified: "sent" },
+            { id: 3, type: "อุณหภูมิ", user: "กิจเก็จ", timestamp: "2024-06-23 11:00", endpoint: "/api/data/temperature", status: "success", value: "28.5°C", notes: "บันทึกอุณหภูมิห้องไก่", lineNotified: "sent" },
+            { id: 4, type: "น้ำหนัก", user: "สมชาย", timestamp: "2024-06-23 12:30", endpoint: "/api/data/weight", status: "pending", value: "45 kg", notes: "เพิ่มรายการใหม่", lineNotified: "none" },
+            { id: 5, type: "สุขภาพ", user: "สนใจ", timestamp: "2024-06-23 14:00", endpoint: "/api/data/health", status: "error", value: "ผิดปกติ", notes: "พบโรคที่ไก่ตัวที่ 5", lineNotified: "sent" }
         ];
 
         let filteredData = [...dataRecords];
@@ -395,6 +425,9 @@
                     error: '✗ ข้อผิดพลาด'
                 }[record.status];
 
+                const lineLabel = { sent: '🟢 ส่งแล้ว', sending: '🟡 กำลังส่ง', failed: '🔴 ล้มเหลว', none: '⚪ ไม่ส่ง' }[record.lineNotified] || '⚪';
+                const lineClass = { sent: 'sent', sending: 'sending', failed: 'failed', none: '' }[record.lineNotified] || '';
+
                 row.innerHTML = `
                     <td>${record.id}</td>
                     <td>${record.type}</td>
@@ -404,6 +437,7 @@
                     <td><span class="api-badge ${apiBadgeClass}">${statusText}</span></td>
                     <td><strong>${record.value}</strong></td>
                     <td>${record.notes}</td>
+                    <td><span class="line-status ${lineClass}">${lineLabel}</span></td>
                     <td>
                         <div class="action-buttons">
                             <button class="btn-small" onclick="editRow(${record.id})">แก้ไข</button>
@@ -454,30 +488,46 @@
                 return;
             }
 
+            const now = new Date().toLocaleString('th-TH', {
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit'
+            });
             const newRecord = {
                 id: Math.max(...dataRecords.map(r => r.id), 0) + 1,
-                type,
-                user,
-                timestamp: new Date().toLocaleString('th-TH', {
-                    year: 'numeric', month: '2-digit', day: '2-digit',
-                    hour: '2-digit', minute: '2-digit'
-                }),
+                type, user,
+                timestamp: now,
                 endpoint,
                 status: 'pending',
                 value,
-                notes
+                notes,
+                lineNotified: 'sending'
             };
 
             dataRecords.push(newRecord);
             filteredData = [...dataRecords];
+            clearForm();
+            renderTable();
+            showToast('✓ เพิ่มข้อมูลสำเร็จ', 'success');
 
+            // Send LINE Notify automatically
+            const lineMsg = `\n🌾 Junkum Farm - บันทึกข้อมูลใหม่\n👤 ผู้บันทึก: ${user}\n📋 ประเภท: ${type}\n📊 ค่า: ${value}\n📍 Endpoint: ${endpoint}\n🕐 เวลา: ${now}\n📝 หมายเหตุ: ${notes || '-'}`;
+            sendLineNotify(lineMsg).then(result => {
+                newRecord.lineNotified = result.ok ? 'sent' : 'failed';
+                filteredData = [...dataRecords];
+                renderTable();
+                if (result.ok) {
+                    showToast('🟢 ส่ง LINE สำเร็จ!', 'line');
+                } else {
+                    showToast(`LINE Error: ${result.error}`, 'error');
+                }
+            });
+        }
+
+        function clearForm() {
             document.getElementById('newUser').value = '';
             document.getElementById('newValue').value = '';
             document.getElementById('newEndpoint').value = '';
             document.getElementById('newNotes').value = '';
-
-            renderTable();
-            alert('✓ เพิ่มข้อมูลสำเร็จ (Data added successfully)');
         }
 
         function deleteRow(id) {
@@ -485,7 +535,7 @@
                 dataRecords = dataRecords.filter(r => r.id !== id);
                 filteredData = [...dataRecords];
                 renderTable();
-                alert('✓ ลบข้อมูลสำเร็จ (Data deleted)');
+                showToast('✓ ลบข้อมูลสำเร็จ', 'success');
             }
         }
 
@@ -497,8 +547,10 @@
                 document.getElementById('newValue').value = record.value;
                 document.getElementById('newEndpoint').value = record.endpoint;
                 document.getElementById('newNotes').value = record.notes;
-                deleteRow(id);
-                alert('กรุณากรอกข้อมูลใหม่เพื่อแก้ไข (Please re-enter to update)');
+                dataRecords = dataRecords.filter(r => r.id !== id);
+                filteredData = [...dataRecords];
+                renderTable();
+                showToast('แก้ไขข้อมูลเดิมแล้ว กรอกใหม่แล้วกด เพิ่มข้อมูล', 'success');
             }
         }
 
@@ -520,8 +572,9 @@
         }
 
         function refreshData() {
+            filteredData = [...dataRecords];
             renderTable();
-            alert('✓ รีเฟรชข้อมูลแล้ว (Data refreshed)');
+            showToast('✓ รีเฟรชข้อมูลแล้ว', 'success');
         }
 
         // Event listeners
