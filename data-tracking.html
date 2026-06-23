@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junkum Farm - Data Tracking Sheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        input, select, button {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        input, select {
+            background: white;
+        }
+        button {
+            background: #2D6A4F;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #1B4332;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 106, 79, 0.3);
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 20px 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        thead {
+            background: #f0f0f0;
+            border-bottom: 2px solid #2D6A4F;
+        }
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #1B4332;
+            border-right: 1px solid #ddd;
+        }
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            border-right: 1px solid #f0f0f0;
+        }
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+        tbody tr:hover {
+            background-color: #f0f7f4;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+        .status-success {
+            color: #28a745;
+            font-weight: 600;
+        }
+        .status-pending {
+            color: #ffc107;
+            font-weight: 600;
+        }
+        .status-error {
+            color: #dc3545;
+            font-weight: 600;
+        }
+        .api-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .api-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .api-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .api-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-small {
+            padding: 6px 12px !important;
+            font-size: 12px !important;
+            background: #2D6A4F !important;
+        }
+        .btn-delete {
+            background: #dc3545 !important;
+        }
+        .btn-delete:hover {
+            background: #c82333 !important;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px 30px;
+            border-top: 1px solid #e9ecef;
+            background: #f8f9fa;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2D6A4F;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1B4332;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+        }
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .add-row-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px 30px;
+            background: #f0f7f4;
+            border-top: 2px solid #e9ecef;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #1B4332;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+        }
+        .submit-btn {
+            grid-column: 1 / -1;
+            padding: 12px 20px !important;
+            background: #52B788 !important;
+            font-size: 15px !important;
+        }
+        .submit-btn:hover {
+            background: #2D6A4F !important;
+        }
+        @media print {
+            body {
+                background: white;
+            }
+            .controls, .add-row-form, .stats {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌾 Junkum Farm Data Tracking Sheet</h1>
+            <p>ระบบติดตามข้อมูล - การบันทึกข้อมูลพร้อมการเชื่อมต่อ API</p>
+        </header>
+
+        <div class="controls">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 ค้นหาข้อมูล (Search)">
+            <div class="filter-group">
+                <label for="filterType">ประเภท:</label>
+                <select id="filterType">
+                    <option value="">ทั้งหมด</option>
+                    <option value="อาหาร">อาหาร (Feed)</option>
+                    <option value="น้ำ">น้ำ (Water)</option>
+                    <option value="อุณหภูมิ">อุณหภูมิ (Temperature)</option>
+                    <option value="น้ำหนัก">น้ำหนัก (Weight)</option>
+                    <option value="สุขภาพ">สุขภาพ (Health)</option>
+                    <option value="อื่นๆ">อื่นๆ (Other)</option>
+                </select>
+            </div>
+            <button onclick="exportToCSV()">📥 ส่งออก CSV</button>
+            <button onclick="printTable()">🖨️ พิมพ์</button>
+            <button onclick="refreshData()">🔄 รีเฟรช</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ประเภท<br>(Type)</th>
+                        <th>ผู้บันทึก<br>(Recorded By)</th>
+                        <th>วันที่เวลา<br>(Timestamp)</th>
+                        <th>API Endpoint</th>
+                        <th>สถานะ API<br>(API Status)</th>
+                        <th>ค่าข้อมูล<br>(Data Value)</th>
+                        <th>หมายเหตุ<br>(Notes)</th>
+                        <th>การกระทำ<br>(Action)</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalEntries">0</div>
+                <div class="stat-label">รวมการบันทึก (Total)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="successCount">0</div>
+                <div class="stat-label">สำเร็จ (Success)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="pendingCount">0</div>
+                <div class="stat-label">รอดำเนิน (Pending)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="errorCount">0</div>
+                <div class="stat-label">ข้อผิดพลาด (Error)</div>
+            </div>
+        </div>
+
+        <div class="add-row-form">
+            <div class="form-group">
+                <label for="newType">ประเภท (Type)</label>
+                <select id="newType">
+                    <option value="อาหาร">อาหาร (Feed)</option>
+                    <option value="น้ำ">น้ำ (Water)</option>
+                    <option value="อุณหภูมิ">อุณหภูมิ (Temperature)</option>
+                    <option value="น้ำหนัก">น้ำหนัก (Weight)</option>
+                    <option value="สุขภาพ">สุขภาพ (Health)</option>
+                    <option value="อื่นๆ">อื่นๆ (Other)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="newUser">ผู้บันทึก (User)</label>
+                <input type="text" id="newUser" placeholder="ชื่อผู้ใช้">
+            </div>
+            <div class="form-group">
+                <label for="newValue">ค่าข้อมูล (Value)</label>
+                <input type="text" id="newValue" placeholder="เช่น 50kg, 28°C">
+            </div>
+            <div class="form-group">
+                <label for="newEndpoint">API Endpoint</label>
+                <input type="text" id="newEndpoint" placeholder="/api/data/feed">
+            </div>
+            <div class="form-group">
+                <label for="newNotes">หมายเหตุ (Notes)</label>
+                <input type="text" id="newNotes" placeholder="หมายเหตุเพิ่มเติม">
+            </div>
+            <button class="submit-btn" onclick="addNewRow()">➕ เพิ่มข้อมูลใหม่ (Add Data)</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample data
+        let dataRecords = [
+            {
+                id: 1,
+                type: "อาหาร",
+                user: "สมชาย",
+                timestamp: "2024-06-23 09:30",
+                endpoint: "/api/data/feed",
+                status: "success",
+                value: "50 kg",
+                notes: "อาหารไก่ตอนเช้า"
+            },
+            {
+                id: 2,
+                type: "น้ำ",
+                user: "สนใจ",
+                timestamp: "2024-06-23 10:15",
+                endpoint: "/api/data/water",
+                status: "success",
+                value: "100 L",
+                notes: "เปลี่ยนน้ำสะอาด"
+            },
+            {
+                id: 3,
+                type: "อุณหภูมิ",
+                user: "กิจเก็จ",
+                timestamp: "2024-06-23 11:00",
+                endpoint: "/api/data/temperature",
+                status: "success",
+                value: "28.5°C",
+                notes: "บันทึกอุณหภูมิห้องไก่"
+            },
+            {
+                id: 4,
+                type: "น้ำหนัก",
+                user: "สมชาย",
+                timestamp: "2024-06-23 12:30",
+                endpoint: "/api/data/weight",
+                status: "pending",
+                value: "45 kg",
+                notes: "เพิ่มรายการใหม่"
+            },
+            {
+                id: 5,
+                type: "สุขภาพ",
+                user: "สนใจ",
+                timestamp: "2024-06-23 14:00",
+                endpoint: "/api/data/health",
+                status: "error",
+                value: "ผิดปกติ",
+                notes: "พบโรคที่ไก่ตัวที่ 5"
+            }
+        ];
+
+        let filteredData = [...dataRecords];
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            filteredData.forEach((record, index) => {
+                const row = document.createElement('tr');
+                const statusClass = `status-${record.status}`;
+                const apiBadgeClass = `api-${record.status}`;
+                const statusText = {
+                    success: '✓ สำเร็จ',
+                    pending: '⏳ รอดำเนิน',
+                    error: '✗ ข้อผิดพลาด'
+                }[record.status];
+
+                row.innerHTML = `
+                    <td>${record.id}</td>
+                    <td>${record.type}</td>
+                    <td>${record.user}</td>
+                    <td>${record.timestamp}</td>
+                    <td><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 4px;">${record.endpoint}</code></td>
+                    <td><span class="api-badge ${apiBadgeClass}">${statusText}</span></td>
+                    <td><strong>${record.value}</strong></td>
+                    <td>${record.notes}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-small" onclick="editRow(${record.id})">แก้ไข</button>
+                            <button class="btn-small btn-delete" onclick="deleteRow(${record.id})">ลบ</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const total = filteredData.length;
+            const success = filteredData.filter(r => r.status === 'success').length;
+            const pending = filteredData.filter(r => r.status === 'pending').length;
+            const error = filteredData.filter(r => r.status === 'error').length;
+
+            document.getElementById('totalEntries').textContent = total;
+            document.getElementById('successCount').textContent = success;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('errorCount').textContent = error;
+        }
+
+        function filterData() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const typeFilter = document.getElementById('filterType').value;
+
+            filteredData = dataRecords.filter(record => {
+                const matchesSearch = JSON.stringify(record).toLowerCase().includes(searchTerm);
+                const matchesType = !typeFilter || record.type === typeFilter;
+                return matchesSearch && matchesType;
+            });
+
+            renderTable();
+        }
+
+        function addNewRow() {
+            const type = document.getElementById('newType').value;
+            const user = document.getElementById('newUser').value;
+            const value = document.getElementById('newValue').value;
+            const endpoint = document.getElementById('newEndpoint').value;
+            const notes = document.getElementById('newNotes').value;
+
+            if (!user || !value || !endpoint) {
+                alert('กรุณากรอกข้อมูลให้ครบ (Please fill all required fields)');
+                return;
+            }
+
+            const newRecord = {
+                id: Math.max(...dataRecords.map(r => r.id), 0) + 1,
+                type,
+                user,
+                timestamp: new Date().toLocaleString('th-TH', {
+                    year: 'numeric', month: '2-digit', day: '2-digit',
+                    hour: '2-digit', minute: '2-digit'
+                }),
+                endpoint,
+                status: 'pending',
+                value,
+                notes
+            };
+
+            dataRecords.push(newRecord);
+            filteredData = [...dataRecords];
+
+            document.getElementById('newUser').value = '';
+            document.getElementById('newValue').value = '';
+            document.getElementById('newEndpoint').value = '';
+            document.getElementById('newNotes').value = '';
+
+            renderTable();
+            alert('✓ เพิ่มข้อมูลสำเร็จ (Data added successfully)');
+        }
+
+        function deleteRow(id) {
+            if (confirm('ต้องการลบข้อมูลนี้หรือไม่? (Are you sure?)')) {
+                dataRecords = dataRecords.filter(r => r.id !== id);
+                filteredData = [...dataRecords];
+                renderTable();
+                alert('✓ ลบข้อมูลสำเร็จ (Data deleted)');
+            }
+        }
+
+        function editRow(id) {
+            const record = dataRecords.find(r => r.id === id);
+            if (record) {
+                document.getElementById('newType').value = record.type;
+                document.getElementById('newUser').value = record.user;
+                document.getElementById('newValue').value = record.value;
+                document.getElementById('newEndpoint').value = record.endpoint;
+                document.getElementById('newNotes').value = record.notes;
+                deleteRow(id);
+                alert('กรุณากรอกข้อมูลใหม่เพื่อแก้ไข (Please re-enter to update)');
+            }
+        }
+
+        function exportToCSV() {
+            let csv = 'ID,ประเภท,ผู้บันทึก,วันที่เวลา,API Endpoint,สถานะ,ค่าข้อมูล,หมายเหตุ\n';
+            filteredData.forEach(record => {
+                csv += `${record.id},"${record.type}","${record.user}","${record.timestamp}","${record.endpoint}","${record.status}","${record.value}","${record.notes}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `junkum-farm-data-${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        function printTable() {
+            window.print();
+        }
+
+        function refreshData() {
+            renderTable();
+            alert('✓ รีเฟรชข้อมูลแล้ว (Data refreshed)');
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('keyup', filterData);
+        document.getElementById('filterType').addEventListener('change', filterData);
+
+        // Initial render
+        renderTable();
+    </script>
+</body>
+</html>
