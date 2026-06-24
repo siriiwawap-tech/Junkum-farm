@@ -126,21 +126,27 @@ const INIT_DAILY = [
 ];
 
 const BATCHES = [
-  { id:1, farm:"จันคำ (บ.เจเค)",       house:"เล้า 1", name:"รุ่น 2/68", date:"2025-04-01", breed:"Ross 308", sex:"ผสม", age:71,  total:8000, dead:200 },
-  { id:2, farm:"จันคำ (บ.เจเค)",       house:"เล้า 2", name:"รุ่น 2/68", date:"2025-04-01", breed:"Ross 308", sex:"ผสม", age:71,  total:7800, dead:150 },
-  { id:3, farm:"จันทร์คำฟาร์ม 2", house:"เล้า 1", name:"รุ่น 1/68", date:"2025-05-15", breed:"Cobb 500", sex:"เมีย", age:27, total:9500, dead:300 },
+  { id:1, farm:"จันคำ (บ.เจเค)", house:"เล้า 1", name:"รุ่น 2/68", date:"2025-04-01", breed:"Ross 308", sex:"ผสม", age:71, total:8000, dead:200,
+    catchDate:"2025-06-10", transportType:"รถผ้าใบ", fanCount:8, deliveryTemp:28, fcrTarget:1.65, weightTarget:2.8, parentAge:42,
+    latestFcr:1.82, latestWeight:2.65, nextWeighAge:35, nextWeighDate:"2025-06-20", note:"", photos:[] },
+  { id:2, farm:"จันคำ (บ.เจเค)", house:"เล้า 2", name:"รุ่น 2/68", date:"2025-04-01", breed:"Ross 308", sex:"ผสม", age:71, total:7800, dead:150,
+    catchDate:"2025-06-10", transportType:"รถผ้าใบ", fanCount:6, deliveryTemp:28, fcrTarget:1.65, weightTarget:2.8, parentAge:42,
+    latestFcr:1.79, latestWeight:2.71, nextWeighAge:35, nextWeighDate:"2025-06-20", note:"", photos:[] },
+  { id:3, farm:"จันทร์คำฟาร์ม 2", house:"เล้า 1", name:"รุ่น 1/68", date:"2025-05-15", breed:"Cobb 500", sex:"เมีย", age:27, total:9500, dead:300,
+    catchDate:"2025-07-10", transportType:"รถกระบะ", fanCount:10, deliveryTemp:27, fcrTarget:1.65, weightTarget:2.5, parentAge:38,
+    latestFcr:3.145, latestWeight:0.85, nextWeighAge:35, nextWeighDate:"2025-06-20", note:"", photos:[] },
 ];
 
 const CHEMICALS = [
-  { id:1, name:"ฟอร์มาลีน 40%", unit:"ลิตร", qty:18, minQty:5,  lastIn:"2025-06-01", lastOut:"2025-06-08", photo:null },
-  { id:2, name:"ด่างทับทิม",     unit:"กก.",  qty:3,  minQty:2,  lastIn:"2025-05-20", lastOut:"2025-06-05", photo:null },
-  { id:3, name:"โซเดียมไฮโปคลอไรท์", unit:"ลิตร", qty:1, minQty:5, lastIn:"2025-05-01", lastOut:"2025-06-09", photo:null },
+  { id:1, name:"ฟอร์มาลีน 40%", formula:"HCHO",   unit:"ลิตร", qty:18, minQty:5, sds:"", lastIn:"2025-06-01", lastOut:"2025-06-08", photo:null },
+  { id:2, name:"ด่างทับทิม",     formula:"KMnO4",  unit:"กก.",  qty:3,  minQty:2, sds:"", lastIn:"2025-05-20", lastOut:"2025-06-05", photo:null },
+  { id:3, name:"โซเดียมไฮโปคลอไรท์", formula:"NaOCl", unit:"ลิตร", qty:1, minQty:5, sds:"", lastIn:"2025-05-01", lastOut:"2025-06-09", photo:null },
 ];
 
 const TOOLS_INV = [
-  { id:1, name:"สว่านไฟฟ้า",    cat:"ไฟฟ้า",  store:"JK1", qty:3, img:"🔧" },
-  { id:2, name:"บล็อกลม",       cat:"ลม",     store:"JK2", qty:1, img:"🔩" },
-  { id:3, name:"แม่แรงยกรถ",    cat:"ทั่วไป", store:"JK1", qty:2, img:"⚙️" },
+  { id:1, name:"สว่านไฟฟ้า Bosch", cat:"ไฟฟ้า",  store:"JK1", qty:3, minQty:1, serial:"SN-2024-001", img:"🔧" },
+  { id:2, name:"บล็อกลม",          cat:"ลม",     store:"JK2", qty:1, minQty:1, serial:"SN-2023-002", img:"🔩" },
+  { id:3, name:"แม่แรงยกรถ",       cat:"ทั่วไป", store:"JK1", qty:2, minQty:1, serial:"SN-2022-003", img:"⚙️" },
 ];
 
 const WELFARE = [
@@ -154,6 +160,35 @@ const AUDIT_SCORES = [
   { batch:"รุ่น 2/67", score:92, bonus:6000 },
   { batch:"รุ่น 1/68", score:85, bonus:3500 },
   { batch:"รุ่น 2/68", score:79, bonus:2000 },
+];
+
+// ─── FCR RECORDS ─────────────────────────────────────────────
+const INIT_FCR_RECORDS = [
+  { id:1, date:"2025-06-11", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 1", batchName:"รุ่น 1/68", age:25, alive:9495, feedTotal:22950, avgWeight:0.82, fcrTarget:1.65 },
+  { id:2, date:"2025-06-12", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 1", batchName:"รุ่น 1/68", age:26, alive:9490, feedTotal:24150, avgWeight:0.82, fcrTarget:1.65 },
+  { id:3, date:"2025-06-13", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 1", batchName:"รุ่น 1/68", age:27, alive:9483, feedTotal:25350, avgWeight:0.85, fcrTarget:1.65 },
+  { id:4, date:"2025-06-11", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 2", batchName:"รุ่น 1/68", age:25, alive:9200, feedTotal:20700, avgWeight:0.80, fcrTarget:1.65 },
+  { id:5, date:"2025-06-12", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 2", batchName:"รุ่น 1/68", age:26, alive:9195, feedTotal:21900, avgWeight:0.80, fcrTarget:1.65 },
+  { id:6, date:"2025-06-13", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 2", batchName:"รุ่น 1/68", age:27, alive:9188, feedTotal:23100, avgWeight:0.82, fcrTarget:1.65 },
+];
+
+// ─── CHEMICAL TRANSACTIONS ────────────────────────────────────
+const INIT_CHEM_TXN = [
+  { id:"CHEM-001", date:"2025-06-01", chemId:1, chemName:"ฟอร์มาลีน 40%", formula:"HCHO", unit:"ลิตร", type:"เข้า", qty:20, balance:18, farm:"จันทร์คำฟาร์ม 2", purpose:"สั่งซื้อสต็อกใหม่", recorder:"สมชาย", note:"", time:"2025-06-01 09:00" },
+  { id:"CHEM-002", date:"2025-06-08", chemId:1, chemName:"ฟอร์มาลีน 40%", formula:"HCHO", unit:"ลิตร", type:"ใช้", qty:2, balance:16, farm:"จันทร์คำฟาร์ม 2", purpose:"ฉีดพ่นเล้า 1", recorder:"สมชาย", note:"", time:"2025-06-08 07:00" },
+  { id:"CHEM-003", date:"2025-05-20", chemId:2, chemName:"ด่างทับทิม", formula:"KMnO4", unit:"กก.", type:"เข้า", qty:5, balance:3, farm:"จันคำ (บ.เจเค)", purpose:"สั่งซื้อ", recorder:"วิชาญ", note:"", time:"2025-05-20 10:00" },
+];
+
+// ─── EQUIPMENT TRANSACTIONS ───────────────────────────────────
+const INIT_TOOL_TXN = [
+  { id:"TOOL-001", date:"2025-06-01", toolId:1, toolName:"สว่านไฟฟ้า Bosch", cat:"ไฟฟ้า", store:"JK1", serial:"SN-2024-001", type:"เข้า", qty:3, balance:3, recorder:"อำนาจ", borrower:"", returnDate:"", note:"ซื้อใหม่", time:"2025-06-01 10:00" },
+  { id:"TOOL-002", date:"2025-06-10", toolId:1, toolName:"สว่านไฟฟ้า Bosch", cat:"ไฟฟ้า", store:"JK1", serial:"SN-2024-001", type:"ยืม", qty:1, balance:2, recorder:"สมชาย", borrower:"วิชาญ แกร่ง", returnDate:"2025-06-15", note:"ซ่อมคอกไก่เล้า 2", time:"2025-06-10 08:00" },
+];
+
+// ─── TASKS ───────────────────────────────────────────────────
+const INIT_TASKS = [
+  { id:"TASK-001", createdDate:"2025-06-13", title:"ตรวจระบบน้ำเล้า 1", desc:"ตรวจท่อและวาล์วทุกจุด", assignedBy:"อากาศ", assignedTo:"สมชาย ใจดี", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 1", cat:"ซ่อมบำรุง", dueDate:"2025-06-15", priority:"สูง", status:"กำลังดำเนินการ", progress:50, note:"", time:"2025-06-13 09:00" },
+  { id:"TASK-002", createdDate:"2025-06-14", title:"ชั่งน้ำหนักไก่ประจำสัปดาห์", desc:"ชั่ง 60 ตัว/เล้า บันทึกผลลงระบบ", assignedBy:"อากาศ", assignedTo:"วิชาญ แกร่ง", farm:"จันทร์คำฟาร์ม 2", house:"เล้า 2", cat:"ชั่งน้ำหนัก", dueDate:"2025-06-20", priority:"กลาง", status:"รอดำเนินการ", progress:0, note:"", time:"2025-06-14 08:00" },
 ];
 
 const today = () => new Date().toISOString().slice(0,10);
@@ -612,80 +647,308 @@ function AuditPage({setPage, lang="th"}) {
 }
 
 // ─── CHEMICALS / ห้องเคมี ────────────────────────────────────
-function ChemPage() {
-  const [showAdd,setShowAdd]=useState(false);
-  const [chems,setChems]=useState(CHEMICALS);
-  const [form,setForm]=useState({name:"",unit:"ลิตร",qty:"",minQty:""});
+function ChemPage({lang="th"}) {
+  const [chems, setChems] = useState(CHEMICALS);
+  const [txns, setTxns] = useState(INIT_CHEM_TXN);
+  const [view, setView] = useState("stock");
+  const [form, setForm] = useState({ name:"", formula:"", unit:"ลิตร", qty:"", minQty:"", sds:"" });
+  const [txnForm, setTxnForm] = useState({ chemId:"", type:"เข้า", qty:"", farm:FARMS[0], purpose:"", recorder:"", note:"" });
 
-  const updatePhoto = (id, url) =>
-    setChems(prev=>prev.map(c=>c.id===id?{...c,photo:url}:c));
+  const addChem = () => {
+    if (!form.name) return;
+    setChems(prev => [...prev, { id:Date.now(), ...form, qty:+form.qty, minQty:+form.minQty, lastIn:today(), lastOut:"—", photo:null }]);
+    setForm({ name:"", formula:"", unit:"ลิตร", qty:"", minQty:"", sds:"" });
+    setView("stock");
+  };
+
+  const addTxn = () => {
+    if (!txnForm.chemId || !txnForm.qty) return;
+    const chem = chems.find(c => c.id === +txnForm.chemId);
+    if (!chem) return;
+    const qty = +txnForm.qty;
+    const newBal = txnForm.type === "เข้า" ? chem.qty + qty : Math.max(0, chem.qty - qty);
+    const id = "CHEM-" + String(Date.now()).slice(-6);
+    setTxns(prev => [{ id, date:today(), chemId:chem.id, chemName:chem.name, formula:chem.formula||"", unit:chem.unit, ...txnForm, qty, balance:newBal, time:new Date().toLocaleString("th-TH") }, ...prev]);
+    setChems(prev => prev.map(c => c.id===chem.id ? { ...c, qty:newBal, [txnForm.type==="เข้า"?"lastIn":"lastOut"]:today() } : c));
+    setTxnForm({ chemId:"", type:"เข้า", qty:"", farm:FARMS[0], purpose:"", recorder:"", note:"" });
+    setView("txn");
+  };
+
+  const txnColor = tp => tp==="เข้า" ? C.teal : tp==="ใช้" ? C.orange : C.red;
+  const txnBg    = tp => tp==="เข้า" ? C.tealPale : tp==="ใช้" ? C.orangePale : C.redPale;
 
   return (
     <div>
-      <SectionTitle icon="🧪" title={t("chemicals",lang)} color={C.teal}/>
-      {chems.map(c=>{
-        const low=c.qty<=c.minQty;
-        return (
-          <Card key={c.id} style={{border:`1.5px solid ${low?C.red:C.greenMid}`,padding:0,overflow:"hidden",marginBottom:12}}>
-            <div style={{display:"flex"}}>
-              {/* Photo left */}
-              <div style={{width:84,flexShrink:0,background:low?C.redPale:C.tealPale,position:"relative",minHeight:110,display:"flex",alignItems:"center",justifyContent:"center"}}>
-                {c.photo
-                  ? <img src={c.photo} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}} alt=""/>
-                  : <span style={{fontSize:30}}>🧴</span>}
-                <label style={{position:"absolute",bottom:4,right:4,background:"rgba(0,0,0,0.55)",borderRadius:"50%",width:22,height:22,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:11}}>
-                  <input type="file" accept="image/*" capture="environment" style={{display:"none"}}
-                    onChange={e=>{const f=e.target.files[0];if(!f)return;updatePhoto(c.id,URL.createObjectURL(f));}}/>
-                  📷
-                </label>
-                {low&&<div style={{position:"absolute",top:4,left:4,background:C.red,borderRadius:6,padding:"1px 5px",fontSize:9,color:"#fff",fontWeight:700}}>⚠️</div>}
-              </div>
-              {/* Info right */}
-              <div style={{flex:1,padding:"12px 12px 10px"}}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:6}}>
-                  <div>
+      <SectionTitle icon="🧪" title="ห้องเคมี" color={C.teal}/>
+
+      <div style={{display:"flex",gap:6,marginBottom:14}}>
+        {[["stock","📦 สต็อก"],["txn","📋 ประวัติ"]].map(([k,lbl])=>(
+          <button key={k} onClick={()=>setView(k)} style={{
+            flex:1,padding:"9px",borderRadius:10,border:"1.5px solid",fontSize:13,fontWeight:600,cursor:"pointer",
+            borderColor:view===k?C.teal:C.greenMid,background:view===k?C.teal:C.white,color:view===k?C.white:C.textMid,
+          }}>{lbl}</button>
+        ))}
+      </div>
+
+      {view==="stock" && (
+        <>
+          {chems.map(c=>{
+            const low = c.qty <= c.minQty;
+            return (
+              <Card key={c.id} style={{border:`1.5px solid ${low?C.red:C.greenMid}`,padding:0,overflow:"hidden",marginBottom:12}}>
+                <div style={{display:"flex"}}>
+                  <div style={{width:84,flexShrink:0,background:low?C.redPale:C.tealPale,position:"relative",minHeight:110,display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    {c.photo ? <img src={c.photo} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}} alt=""/> : <span style={{fontSize:30}}>🧴</span>}
+                    <label style={{position:"absolute",bottom:4,right:4,background:"rgba(0,0,0,0.55)",borderRadius:"50%",width:22,height:22,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:11}}>
+                      <input type="file" accept="image/*" capture="environment" style={{display:"none"}}
+                        onChange={e=>{const f=e.target.files[0];if(!f)return;setChems(prev=>prev.map(x=>x.id===c.id?{...x,photo:URL.createObjectURL(f)}:x));}}/>📷
+                    </label>
+                    {low && <div style={{position:"absolute",top:4,left:4,background:C.red,borderRadius:6,padding:"1px 5px",fontSize:9,color:"#fff",fontWeight:700}}>⚠️</div>}
+                  </div>
+                  <div style={{flex:1,padding:"12px 12px 10px"}}>
                     <div style={{fontWeight:700,fontSize:14,color:C.text}}>{c.name}</div>
-                    <div style={{fontSize:11,color:C.textLight}}>เข้า: {c.lastIn} · ออก: {c.lastOut||"—"}</div>
+                    {c.formula && <div style={{fontSize:11,color:C.textLight,fontFamily:"monospace",marginBottom:2}}>{c.formula}</div>}
+                    <div style={{fontSize:11,color:C.textLight,marginBottom:8}}>เข้า: {c.lastIn} · ออก: {c.lastOut||"—"}</div>
+                    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,marginBottom:6}}>
+                      <div style={{textAlign:"center",background:low?C.redPale:C.tealPale,borderRadius:8,padding:"6px"}}>
+                        <div style={{fontWeight:700,color:low?C.red:C.teal,fontSize:20}}>{c.qty}</div>
+                        <div style={{fontSize:10,color:C.textLight}}>{c.unit}</div>
+                      </div>
+                      <div style={{textAlign:"center",background:C.grayPale,borderRadius:8,padding:"6px"}}>
+                        <div style={{fontWeight:700,color:C.gray,fontSize:20}}>{c.minQty}</div>
+                        <div style={{fontSize:10,color:C.textLight}}>ขั้นต่ำ</div>
+                      </div>
+                    </div>
+                    {low && <Pill label="ใกล้หมด" color={C.red} bg={C.redPale}/>}
                   </div>
-                  {low&&<Pill label="ใกล้หมด" color={C.red} bg={C.redPale}/>}
                 </div>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,marginBottom:8}}>
-                  <div style={{textAlign:"center",background:low?C.redPale:C.tealPale,borderRadius:8,padding:"6px"}}>
-                    <div style={{fontWeight:700,color:low?C.red:C.teal,fontSize:20}}>{c.qty}</div>
-                    <div style={{fontSize:10,color:C.textLight}}>{c.unit}</div>
-                  </div>
-                  <div style={{textAlign:"center",background:C.grayPale,borderRadius:8,padding:"6px"}}>
-                    <div style={{fontWeight:700,color:C.gray,fontSize:20}}>{c.minQty}</div>
-                    <div style={{fontSize:10,color:C.textLight}}>ขั้นต่ำ</div>
-                  </div>
+              </Card>
+            );
+          })}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginTop:4}}>
+            <button onClick={()=>setView("add_txn")} style={{padding:"13px",borderRadius:12,border:`2px solid ${C.teal}`,background:C.teal,color:C.white,fontSize:14,fontWeight:700,cursor:"pointer"}}>+ บันทึกรับ/จ่าย</button>
+            <button onClick={()=>setView("add_chem")} style={{padding:"13px",borderRadius:12,border:`2px dashed ${C.teal}`,background:C.tealPale,color:C.teal,fontSize:14,fontWeight:700,cursor:"pointer"}}>+ เพิ่มสารเคมี</button>
+          </div>
+        </>
+      )}
+
+      {view==="txn" && (
+        <>
+          <button onClick={()=>setView("add_txn")} style={{width:"100%",padding:"11px",borderRadius:12,border:`2px solid ${C.teal}`,background:C.teal,color:C.white,fontSize:14,fontWeight:700,cursor:"pointer",marginBottom:12}}>+ บันทึกรับ/จ่าย</button>
+          {txns.map(tx=>(
+            <Card key={tx.id} style={{border:`1.5px solid ${txnBg(tx.type)}`,padding:"12px",marginBottom:8}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:4}}>
+                <div>
+                  <div style={{fontWeight:700,fontSize:13,color:C.text}}>{tx.chemName}</div>
+                  {tx.formula && <div style={{fontSize:10,color:C.textLight,fontFamily:"monospace"}}>{tx.formula}</div>}
+                  <div style={{fontSize:11,color:C.textMid}}>{tx.farm} · {tx.date}</div>
                 </div>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6}}>
-                  <button onClick={()=>setChems(prev=>prev.map(x=>x.id===c.id?{...x,qty:x.qty+1,lastIn:today()}:x))}
-                    style={{padding:"6px",borderRadius:8,border:"none",background:C.tealPale,color:C.teal,fontSize:12,fontWeight:700,cursor:"pointer"}}>+ เข้า</button>
-                  <button onClick={()=>setChems(prev=>prev.map(x=>x.id===c.id?{...x,qty:Math.max(0,x.qty-1),lastOut:today()}:x))}
-                    style={{padding:"6px",borderRadius:8,border:"none",background:C.redPale,color:C.red,fontSize:12,fontWeight:700,cursor:"pointer"}}>− ออก</button>
+                <div style={{textAlign:"right"}}>
+                  <Pill label={tx.type} color={txnColor(tx.type)} bg={txnBg(tx.type)}/>
+                  <div style={{fontWeight:700,fontSize:16,color:txnColor(tx.type),marginTop:4}}>{tx.type==="เข้า"?"+":"−"}{tx.qty} {tx.unit}</div>
                 </div>
               </div>
+              <div style={{fontSize:11,color:C.textMid,borderTop:`1px solid ${C.greenMid}`,paddingTop:6,marginTop:4,display:"grid",gridTemplateColumns:"1fr 1fr",gap:4}}>
+                <span>คงเหลือ: <b>{tx.balance} {tx.unit}</b></span>
+                <span>ผู้บันทึก: {tx.recorder||"—"}</span>
+                {tx.purpose && <span style={{gridColumn:"1/-1"}}>วัตถุประสงค์: {tx.purpose}</span>}
+              </div>
+            </Card>
+          ))}
+          {txns.length===0 && <div style={{textAlign:"center",color:C.textLight,padding:30}}>ยังไม่มีประวัติ</div>}
+        </>
+      )}
+
+      {view==="add_chem" && (
+        <Card>
+          <div style={{fontWeight:700,marginBottom:10,color:C.text,fontSize:15}}>เพิ่มสารเคมีใหม่</div>
+          <label style={LS}>ชื่อสารเคมี</label>
+          <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} style={{...IS,marginBottom:8}} placeholder="เช่น ฟอร์มาลีน 40%"/>
+          <label style={LS}>สูตรเคมี (ถ้ามี)</label>
+          <input value={form.formula} onChange={e=>setForm({...form,formula:e.target.value})} style={{...IS,marginBottom:8}} placeholder="เช่น HCHO"/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>หน่วย</label>
+              <select value={form.unit} onChange={e=>setForm({...form,unit:e.target.value})} style={IS}>
+                {["ลิตร","กก.","ขวด","ถัง","กล่อง"].map(u=><option key={u}>{u}</option>)}
+              </select>
+            </div>
+            <div><label style={LS}>จำนวน</label><input type="number" value={form.qty} onChange={e=>setForm({...form,qty:e.target.value})} style={IS}/></div>
+            <div><label style={LS}>ขั้นต่ำ</label><input type="number" value={form.minQty} onChange={e=>setForm({...form,minQty:e.target.value})} style={IS}/></div>
+          </div>
+          <label style={LS}>ลิงก์ SDS (ถ้ามี)</label>
+          <input value={form.sds} onChange={e=>setForm({...form,sds:e.target.value})} style={{...IS,marginBottom:12}} placeholder="https://..."/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+            <button onClick={()=>setView("stock")} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+            <button onClick={addChem} style={{padding:"11px",borderRadius:10,border:"none",background:C.teal,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
+          </div>
+        </Card>
+      )}
+
+      {view==="add_txn" && (
+        <Card>
+          <div style={{fontWeight:700,marginBottom:10,color:C.text,fontSize:15}}>บันทึกรับ/จ่ายสารเคมี</div>
+          <label style={LS}>สารเคมี</label>
+          <select value={txnForm.chemId} onChange={e=>setTxnForm({...txnForm,chemId:e.target.value})} style={{...IS,marginBottom:8}}>
+            <option value="">-- เลือกสารเคมี --</option>
+            {chems.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>ประเภท</label>
+              <select value={txnForm.type} onChange={e=>setTxnForm({...txnForm,type:e.target.value})} style={IS}>
+                {["เข้า","ออก","ใช้"].map(tp=><option key={tp}>{tp}</option>)}
+              </select>
+            </div>
+            <div><label style={LS}>จำนวน</label><input type="number" value={txnForm.qty} onChange={e=>setTxnForm({...txnForm,qty:e.target.value})} style={IS}/></div>
+          </div>
+          <label style={LS}>ฟาร์ม</label>
+          <select value={txnForm.farm} onChange={e=>setTxnForm({...txnForm,farm:e.target.value})} style={{...IS,marginBottom:8}}>
+            {FARMS.map(f=><option key={f}>{f}</option>)}
+          </select>
+          <label style={LS}>วัตถุประสงค์</label>
+          <input value={txnForm.purpose} onChange={e=>setTxnForm({...txnForm,purpose:e.target.value})} style={{...IS,marginBottom:8}} placeholder="เช่น ฉีดพ่นฆ่าเชื้อเล้า 1"/>
+          <label style={LS}>ผู้บันทึก</label>
+          <input value={txnForm.recorder} onChange={e=>setTxnForm({...txnForm,recorder:e.target.value})} style={{...IS,marginBottom:8}}/>
+          <label style={LS}>หมายเหตุ</label>
+          <input value={txnForm.note} onChange={e=>setTxnForm({...txnForm,note:e.target.value})} style={{...IS,marginBottom:12}}/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+            <button onClick={()=>setView("txn")} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+            <button onClick={addTxn} style={{padding:"11px",borderRadius:10,border:"none",background:C.teal,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
+          </div>
+        </Card>
+      )}
+    </div>
+  );
+}
+
+// ─── FCR PAGE ────────────────────────────────────────────────
+function FCRPage({lang="th"}) {
+  const [records, setRecords] = useState(INIT_FCR_RECORDS);
+  const [showAdd, setShowAdd] = useState(false);
+  const [filterFarm, setFilterFarm] = useState("ทั้งหมด");
+  const [filterHouse, setFilterHouse] = useState("ทั้งหมด");
+  const [form, setForm] = useState({ date:today(), farm:FARMS[0], house:"เล้า 1", batchName:"", age:"", alive:"", feedTotal:"", avgWeight:"", fcrTarget:"1.65" });
+
+  const calcFcr = r => {
+    const biomass = r.alive * r.avgWeight;
+    return biomass > 0 ? +(r.feedTotal / biomass).toFixed(3) : null;
+  };
+
+  const allFarms = ["ทั้งหมด", ...FARMS];
+  const allHouses = filterFarm === "ทั้งหมด" ? ["ทั้งหมด"] : ["ทั้งหมด", ...(HOUSES[filterFarm]||[])];
+
+  const filtered = records
+    .filter(r => filterFarm === "ทั้งหมด" || r.farm === filterFarm)
+    .filter(r => filterHouse === "ทั้งหมด" || r.house === filterHouse)
+    .sort((a,b) => b.date.localeCompare(a.date));
+
+  const addRecord = () => {
+    if (!form.batchName || !form.alive || !form.feedTotal || !form.avgWeight) return;
+    setRecords(prev => [...prev, { id:Date.now(), ...form, age:+form.age, alive:+form.alive, feedTotal:+form.feedTotal, avgWeight:+form.avgWeight, fcrTarget:+form.fcrTarget }]);
+    setShowAdd(false);
+  };
+
+  return (
+    <div>
+      <SectionTitle icon="📊" title="ติดตาม FCR รายวัน" color={C.blue}/>
+
+      <div style={{overflowX:"auto",marginBottom:8}}>
+        <div style={{display:"flex",gap:6,paddingBottom:4}}>
+          {allFarms.map(f=>(
+            <button key={f} onClick={()=>{setFilterFarm(f);setFilterHouse("ทั้งหมด");}} style={{
+              flexShrink:0,padding:"7px 12px",borderRadius:10,border:"1.5px solid",fontSize:12,fontWeight:600,cursor:"pointer",
+              borderColor:filterFarm===f?C.blue:C.greenMid,background:filterFarm===f?C.blue:C.white,color:filterFarm===f?C.white:C.textMid,
+            }}>{f}</button>
+          ))}
+        </div>
+      </div>
+
+      {filterFarm !== "ทั้งหมด" && (
+        <div style={{display:"flex",gap:6,marginBottom:12}}>
+          {allHouses.map(h=>(
+            <button key={h} onClick={()=>setFilterHouse(h)} style={{
+              flex:1,padding:"7px",borderRadius:10,border:"1.5px solid",fontSize:12,fontWeight:600,cursor:"pointer",
+              borderColor:filterHouse===h?C.blue:C.greenMid,background:filterHouse===h?C.blue:C.white,color:filterHouse===h?C.white:C.textMid,
+            }}>{h}</button>
+          ))}
+        </div>
+      )}
+
+      {filtered.map(r=>{
+        const fcr = calcFcr(r);
+        const ok = fcr !== null ? fcr <= r.fcrTarget : null;
+        const biomass = r.alive * r.avgWeight;
+        return (
+          <Card key={r.id} style={{border:`1.5px solid ${ok===false?C.red:ok===true?C.teal:C.greenMid}`,marginBottom:10}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:8}}>
+              <div>
+                <div style={{fontWeight:700,fontSize:14,color:C.text}}>{r.farm} — {r.house}</div>
+                <div style={{fontSize:12,color:C.textMid}}>{r.batchName} · อายุ {r.age} วัน · {r.date}</div>
+              </div>
+              {ok !== null && <Pill label={ok?"✅ ผ่านเป้า":"🔴 เกินเป้า"} color={ok?C.teal:C.red} bg={ok?C.tealPale:C.redPale}/>}
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:6,marginBottom:8}}>
+              <div style={{textAlign:"center",background:C.bluePale,borderRadius:8,padding:"8px 4px"}}>
+                <div style={{fontWeight:700,fontSize:18,color:C.blue}}>{fcr ?? "—"}</div>
+                <div style={{fontSize:10,color:C.textLight}}>FCR สะสม</div>
+              </div>
+              <div style={{textAlign:"center",background:ok===false?C.redPale:C.tealPale,borderRadius:8,padding:"8px 4px"}}>
+                <div style={{fontWeight:700,fontSize:18,color:ok===false?C.red:C.teal}}>{r.fcrTarget}</div>
+                <div style={{fontSize:10,color:C.textLight}}>FCR เป้าหมาย</div>
+              </div>
+              <div style={{textAlign:"center",background:C.grayPale,borderRadius:8,padding:"8px 4px"}}>
+                <div style={{fontWeight:700,fontSize:16,color:C.gray}}>{fmt(Math.round(biomass))}</div>
+                <div style={{fontSize:10,color:C.textLight}}>มวลชีพ (กก.)</div>
+              </div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:4,fontSize:11,color:C.textMid}}>
+              <span>ไก่: <b>{fmt(r.alive)}</b></span>
+              <span>อาหาร: <b>{fmt(r.feedTotal)} กก.</b></span>
+              <span>น้ำหนัก: <b>{r.avgWeight} กก.</b></span>
             </div>
           </Card>
         );
       })}
-      {showAdd?(
+
+      {filtered.length===0 && <div style={{textAlign:"center",color:C.textLight,padding:30}}>ยังไม่มีข้อมูล</div>}
+
+      {showAdd ? (
         <Card>
-          <div style={{fontWeight:700,marginBottom:10}}>เพิ่มสารเคมี</div>
-          <label style={LS}>ชื่อ</label><input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} style={{...IS,marginBottom:8}}/>
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:12}}>
-            <div><label style={LS}>หน่วย</label><select value={form.unit} onChange={e=>setForm({...form,unit:e.target.value})} style={IS}>{["ลิตร","กก.","ขวด","ถัง"].map(u=><option key={u}>{u}</option>)}</select></div>
-            <div><label style={LS}>จำนวน</label><input type="number" value={form.qty} onChange={e=>setForm({...form,qty:e.target.value})} style={IS}/></div>
-            <div><label style={LS}>ขั้นต่ำ</label><input type="number" value={form.minQty} onChange={e=>setForm({...form,minQty:e.target.value})} style={IS}/></div>
+          <div style={{fontWeight:700,marginBottom:10,color:C.text,fontSize:15}}>บันทึก FCR รายวัน</div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>วันที่</label><input type="date" value={form.date} onChange={e=>setForm({...form,date:e.target.value})} style={IS}/></div>
+            <div><label style={LS}>ชื่อรุ่น</label><input value={form.batchName} onChange={e=>setForm({...form,batchName:e.target.value})} style={IS} placeholder="รุ่น 1/68"/></div>
           </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>ฟาร์ม</label>
+              <select value={form.farm} onChange={e=>setForm({...form,farm:e.target.value,house:"เล้า 1"})} style={IS}>
+                {FARMS.map(f=><option key={f}>{f}</option>)}
+              </select>
+            </div>
+            <div><label style={LS}>เล้า</label>
+              <select value={form.house} onChange={e=>setForm({...form,house:e.target.value})} style={IS}>
+                {(HOUSES[form.farm]||[]).map(h=><option key={h}>{h}</option>)}
+              </select>
+            </div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>อายุ (วัน)</label><input type="number" value={form.age} onChange={e=>setForm({...form,age:e.target.value})} style={IS}/></div>
+            <div><label style={LS}>ไก่มีชีวิต (ตัว)</label><input type="number" value={form.alive} onChange={e=>setForm({...form,alive:e.target.value})} style={IS}/></div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>อาหารสะสม (กก.)</label><input type="number" value={form.feedTotal} onChange={e=>setForm({...form,feedTotal:e.target.value})} style={IS}/></div>
+            <div><label style={LS}>น้ำหนักเฉลี่ย (กก.)</label><input type="number" step="0.01" value={form.avgWeight} onChange={e=>setForm({...form,avgWeight:e.target.value})} style={IS}/></div>
+          </div>
+          <label style={LS}>FCR เป้าหมาย</label>
+          <input type="number" step="0.01" value={form.fcrTarget} onChange={e=>setForm({...form,fcrTarget:e.target.value})} style={{...IS,marginBottom:12}}/>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-            <button onClick={()=>setShowAdd(false)} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>{t("cancel",lang)}</button>
-            <button onClick={()=>{if(!form.name)return;setChems(prev=>[...prev,{id:Date.now(),...form,qty:+form.qty,minQty:+form.minQty,lastIn:today(),lastOut:"—",photo:null}]);setShowAdd(false);}} style={{padding:"11px",borderRadius:10,border:"none",background:C.teal,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
+            <button onClick={()=>setShowAdd(false)} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+            <button onClick={addRecord} style={{padding:"11px",borderRadius:10,border:"none",background:C.blue,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
           </div>
         </Card>
-      ):(
-        <button onClick={()=>setShowAdd(true)} style={{width:"100%",padding:"13px",borderRadius:12,border:`2px dashed ${C.teal}`,background:C.tealPale,color:C.teal,fontSize:14,fontWeight:700,cursor:"pointer"}}>+ เพิ่มสารเคมี</button>
+      ) : (
+        <button onClick={()=>setShowAdd(true)} style={{width:"100%",padding:"13px",borderRadius:12,border:`2px dashed ${C.blue}`,background:C.bluePale,color:C.blue,fontSize:14,fontWeight:700,cursor:"pointer",marginTop:8}}>
+          + บันทึก FCR รายวัน
+        </button>
       )}
     </div>
   );
@@ -815,6 +1078,8 @@ const MORE_MENU = [
   { id:"chem",    icon:"🌿", label:"ห้องเคมี",         color:C.teal },
   { id:"welfare", icon:"💛", label:"สวัสดิการแรงงาน",  color:C.brown },
   { id:"toolsinv",icon:"🔨", label:"ห้องอุปกรณ์",      color:C.gray },
+  { id:"fcr",     icon:"📊", label:"ติดตาม FCR",       color:C.blue },
+  { id:"tasks",   icon:"✅", label:"งานที่มอบหมาย",    color:C.purple },
   { id:"ai",      icon:"🤖", label:"AI นับไก่",        color:C.orange },
   { id:"calendar",icon:"🗓️", label:"ปฏิทิน",           color:C.blue },
   { id:"dev",     icon:"⚡", label:"นักพัฒนา",         color:C.dark },
@@ -2443,60 +2708,125 @@ function FinancePage({expenses, setExpenses, lang="th"}) {
 }
 
 // ─── TOOLS INVENTORY ──────────────────────────────────────────
-function ToolsInvPage() {
-  const [tools,setTools]=useState(TOOLS_INV);
-  const [showAdd,setShowAdd]=useState(false);
-  const [filterStore,setFilterStore]=useState("ทั้งหมด");
-  const [form,setForm]=useState({name:"",cat:"ไฟฟ้า",store:"JK1",qty:"",img:"🔧"});
+function ToolsInvPage({lang="th"}) {
+  const [tools, setTools] = useState(TOOLS_INV);
+  const [txns, setTxns] = useState(INIT_TOOL_TXN);
+  const [view, setView] = useState("stock");
+  const [filterStore, setFilterStore] = useState("ทั้งหมด");
+  const [form, setForm] = useState({ name:"", cat:"ไฟฟ้า", store:"JK1", qty:"", minQty:"1", serial:"", img:"🔧" });
+  const [txnForm, setTxnForm] = useState({ toolId:"", type:"เข้า", qty:"1", recorder:"", borrower:"", returnDate:"", note:"" });
 
-  const filtered = filterStore==="ทั้งหมด" ? tools : tools.filter(t=>t.store===filterStore);
+  const addTool = () => {
+    if (!form.name) return;
+    setTools(prev => [...prev, { id:Date.now(), ...form, qty:+form.qty, minQty:+form.minQty }]);
+    setForm({ name:"", cat:"ไฟฟ้า", store:"JK1", qty:"", minQty:"1", serial:"", img:"🔧" });
+    setView("stock");
+  };
+
+  const addTxn = () => {
+    if (!txnForm.toolId || !txnForm.qty) return;
+    const tool = tools.find(tt => tt.id === +txnForm.toolId);
+    if (!tool) return;
+    const qty = +txnForm.qty;
+    const newBal = txnForm.type === "เข้า" || txnForm.type === "คืน" ? tool.qty + qty : Math.max(0, tool.qty - qty);
+    const id = "TOOL-" + String(Date.now()).slice(-6);
+    setTxns(prev => [{ id, date:today(), toolId:tool.id, toolName:tool.name, cat:tool.cat, store:tool.store, serial:tool.serial||"", ...txnForm, qty, balance:newBal, time:new Date().toLocaleString("th-TH") }, ...prev]);
+    setTools(prev => prev.map(tt => tt.id===tool.id ? { ...tt, qty:newBal } : tt));
+    setTxnForm({ toolId:"", type:"เข้า", qty:"1", recorder:"", borrower:"", returnDate:"", note:"" });
+    setView("txn");
+  };
+
+  const typeColor = tp => tp==="เข้า"?"#2A9078":tp==="ยืม"?C.blue:tp==="คืน"?C.teal:C.red;
+  const typeBg    = tp => tp==="เข้า"?C.tealPale:tp==="ยืม"?C.bluePale:tp==="คืน"?"#EAF6F3":C.redPale;
 
   return (
     <div>
       <SectionTitle icon="📦" title="ห้องอุปกรณ์" color={C.gray}/>
 
-      {/* Filter คลัง */}
       <div style={{display:"flex",gap:6,marginBottom:14}}>
-        {["ทั้งหมด","JK1","JK2"].map(s=>(
-          <button key={s} onClick={()=>setFilterStore(s)} style={{
-            flex:1,padding:"8px",borderRadius:10,border:"1.5px solid",fontSize:13,fontWeight:600,cursor:"pointer",
-            borderColor:filterStore===s?C.gray:C.greenMid,background:filterStore===s?C.gray:C.white,color:filterStore===s?C.white:C.textMid,
-          }}>{s==="ทั้งหมด"?"ทั้งหมด":s}</button>
+        {[["stock","📦 สต็อก"],["txn","📋 ประวัติ"]].map(([k,lbl])=>(
+          <button key={k} onClick={()=>setView(k)} style={{
+            flex:1,padding:"9px",borderRadius:10,border:"1.5px solid",fontSize:13,fontWeight:600,cursor:"pointer",
+            borderColor:view===k?C.gray:C.greenMid,background:view===k?C.gray:C.white,color:view===k?C.white:C.textMid,
+          }}>{lbl}</button>
         ))}
       </div>
 
-      {filtered.map(t=>(
-        <Card key={t.id} style={{border:`1.5px solid ${C.greenMid}`,padding:0,overflow:"hidden",display:"flex"}}>
-          {/* thumb */}
-          <div style={{width:72,flexShrink:0,background:C.grayPale,display:"flex",alignItems:"center",justifyContent:"center",fontSize:28}}>
-            {t.img}
+      {view==="stock" && (
+        <>
+          <div style={{display:"flex",gap:6,marginBottom:14}}>
+            {["ทั้งหมด","JK1","JK2"].map(s=>(
+              <button key={s} onClick={()=>setFilterStore(s)} style={{
+                flex:1,padding:"8px",borderRadius:10,border:"1.5px solid",fontSize:13,fontWeight:600,cursor:"pointer",
+                borderColor:filterStore===s?C.gray:C.greenMid,background:filterStore===s?C.gray:C.white,color:filterStore===s?C.white:C.textMid,
+              }}>{s}</button>
+            ))}
           </div>
-          <div style={{flex:1,padding:"12px"}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:6}}>
-              <div>
-                <div style={{fontWeight:700,fontSize:14,color:C.text}}>{t.name}</div>
-                <div style={{fontSize:11,color:C.textLight}}>{t.cat} · คลัง {t.store}</div>
-              </div>
-              <div style={{textAlign:"center"}}>
-                <div style={{fontWeight:700,fontSize:20,color:C.gray}}>{t.qty}</div>
-                <div style={{fontSize:10,color:C.textLight}}>ชิ้น</div>
-              </div>
-            </div>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-              <button onClick={()=>setTools(prev=>prev.map(x=>x.id===t.id?{...x,qty:x.qty+1}:x))}
-                style={{padding:"7px",borderRadius:9,border:"none",background:C.greenPale,color:C.green,fontSize:12,fontWeight:700,cursor:"pointer"}}>+ นำเข้า</button>
-              <button onClick={()=>setTools(prev=>prev.map(x=>x.id===t.id?{...x,qty:Math.max(0,x.qty-1)}:x))}
-                style={{padding:"7px",borderRadius:9,border:"none",background:C.redPale,color:C.red,fontSize:12,fontWeight:700,cursor:"pointer"}}>− ออก</button>
-            </div>
+          {tools.filter(tt=>filterStore==="ทั้งหมด"||tt.store===filterStore).map(tt=>{
+            const low = tt.qty <= (tt.minQty||0);
+            return (
+              <Card key={tt.id} style={{border:`1.5px solid ${low?C.red:C.greenMid}`,padding:0,overflow:"hidden",display:"flex",marginBottom:10}}>
+                <div style={{width:72,flexShrink:0,background:C.grayPale,display:"flex",alignItems:"center",justifyContent:"center",fontSize:28}}>{tt.img}</div>
+                <div style={{flex:1,padding:"12px"}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:4}}>
+                    <div>
+                      <div style={{fontWeight:700,fontSize:14,color:C.text}}>{tt.name}</div>
+                      <div style={{fontSize:11,color:C.textLight}}>{tt.cat} · คลัง {tt.store}</div>
+                      {tt.serial && <div style={{fontSize:10,color:C.textLight,fontFamily:"monospace"}}>S/N: {tt.serial}</div>}
+                    </div>
+                    <div style={{textAlign:"center"}}>
+                      <div style={{fontWeight:700,fontSize:20,color:low?C.red:C.gray}}>{tt.qty}</div>
+                      <div style={{fontSize:10,color:C.textLight}}>ชิ้น</div>
+                    </div>
+                  </div>
+                  {low && <Pill label="ใกล้หมด" color={C.red} bg={C.redPale}/>}
+                </div>
+              </Card>
+            );
+          })}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginTop:4}}>
+            <button onClick={()=>setView("add_txn")} style={{padding:"13px",borderRadius:12,border:`2px solid ${C.gray}`,background:C.gray,color:C.white,fontSize:14,fontWeight:700,cursor:"pointer"}}>+ ยืม/คืน/รับ</button>
+            <button onClick={()=>setView("add_tool")} style={{padding:"13px",borderRadius:12,border:`2px dashed ${C.gray}`,background:C.grayPale,color:C.gray,fontSize:14,fontWeight:700,cursor:"pointer"}}>+ เพิ่มอุปกรณ์</button>
           </div>
-        </Card>
-      ))}
+        </>
+      )}
 
-      {showAdd ? (
+      {view==="txn" && (
+        <>
+          <button onClick={()=>setView("add_txn")} style={{width:"100%",padding:"11px",borderRadius:12,border:`2px solid ${C.gray}`,background:C.gray,color:C.white,fontSize:14,fontWeight:700,cursor:"pointer",marginBottom:12}}>+ บันทึกการยืม/คืน/รับ</button>
+          {txns.map(tx=>(
+            <Card key={tx.id} style={{border:`1.5px solid ${typeBg(tx.type)}`,padding:"12px",marginBottom:8}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:4}}>
+                <div>
+                  <div style={{fontWeight:700,fontSize:13,color:C.text}}>{tx.toolName}</div>
+                  {tx.serial && <div style={{fontSize:10,color:C.textLight,fontFamily:"monospace"}}>S/N: {tx.serial}</div>}
+                  <div style={{fontSize:11,color:C.textMid}}>{tx.store} · {tx.date}</div>
+                </div>
+                <div style={{textAlign:"right"}}>
+                  <Pill label={tx.type} color={typeColor(tx.type)} bg={typeBg(tx.type)}/>
+                  <div style={{fontWeight:700,fontSize:16,color:typeColor(tx.type),marginTop:4}}>{tx.qty} ชิ้น</div>
+                </div>
+              </div>
+              <div style={{fontSize:11,color:C.textMid,borderTop:`1px solid ${C.greenMid}`,paddingTop:6,marginTop:4,display:"grid",gridTemplateColumns:"1fr 1fr",gap:4}}>
+                <span>คงเหลือ: <b>{tx.balance} ชิ้น</b></span>
+                <span>ผู้บันทึก: {tx.recorder||"—"}</span>
+                {tx.borrower && <span>ผู้ยืม: <b>{tx.borrower}</b></span>}
+                {tx.returnDate && <span>กำหนดคืน: {tx.returnDate}</span>}
+                {tx.note && <span style={{gridColumn:"1/-1"}}>หมายเหตุ: {tx.note}</span>}
+              </div>
+            </Card>
+          ))}
+          {txns.length===0 && <div style={{textAlign:"center",color:C.textLight,padding:30}}>ยังไม่มีประวัติ</div>}
+        </>
+      )}
+
+      {view==="add_tool" && (
         <Card>
-          <div style={{fontWeight:700,marginBottom:10,color:C.text}}>เพิ่มอุปกรณ์</div>
+          <div style={{fontWeight:700,marginBottom:10,color:C.text,fontSize:15}}>เพิ่มอุปกรณ์ใหม่</div>
           <label style={LS}>ชื่ออุปกรณ์</label>
           <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} style={{...IS,marginBottom:8}}/>
+          <label style={LS}>Serial / รหัสเครื่อง (ถ้ามี)</label>
+          <input value={form.serial} onChange={e=>setForm({...form,serial:e.target.value})} style={{...IS,marginBottom:8}} placeholder="SN-XXXX-001"/>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:10}}>
             <div><label style={LS}>ประเภท</label>
               <select value={form.cat} onChange={e=>setForm({...form,cat:e.target.value})} style={IS}>
@@ -2512,25 +2842,198 @@ function ToolsInvPage() {
               <input type="number" value={form.qty} onChange={e=>setForm({...form,qty:e.target.value})} style={IS}/>
             </div>
           </div>
-          <label style={{display:"block",padding:"10px",background:C.grayPale,borderRadius:10,textAlign:"center",cursor:"pointer",fontSize:13,color:C.textMid,marginBottom:12}}>
-            <input type="file" accept="image/*" style={{display:"none"}}/>📸 ถ่ายรูปอุปกรณ์
-          </label>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-            <button onClick={()=>setShowAdd(false)} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>{t("cancel",lang)}</button>
-            <button onClick={()=>{if(!form.name)return;setTools(prev=>[...prev,{id:Date.now(),...form,qty:+form.qty}]);setShowAdd(false);}}
-              style={{padding:"11px",borderRadius:10,border:"none",background:C.gray,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
+            <button onClick={()=>setView("stock")} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+            <button onClick={addTool} style={{padding:"11px",borderRadius:10,border:"none",background:C.gray,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
           </div>
         </Card>
-      ) : (
-        <button onClick={()=>setShowAdd(true)} style={{width:"100%",padding:"13px",borderRadius:12,border:`2px dashed ${C.gray}`,background:C.grayPale,color:C.gray,fontSize:14,fontWeight:700,cursor:"pointer"}}>
-          + เพิ่มอุปกรณ์ใหม่
-        </button>
+      )}
+
+      {view==="add_txn" && (
+        <Card>
+          <div style={{fontWeight:700,marginBottom:10,color:C.text,fontSize:15}}>บันทึกรับ/ยืม/คืนอุปกรณ์</div>
+          <label style={LS}>อุปกรณ์</label>
+          <select value={txnForm.toolId} onChange={e=>setTxnForm({...txnForm,toolId:e.target.value})} style={{...IS,marginBottom:8}}>
+            <option value="">-- เลือกอุปกรณ์ --</option>
+            {tools.map(tt=><option key={tt.id} value={tt.id}>{tt.name}</option>)}
+          </select>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>ประเภท</label>
+              <select value={txnForm.type} onChange={e=>setTxnForm({...txnForm,type:e.target.value})} style={IS}>
+                {["เข้า","ออก","ยืม","คืน"].map(tp=><option key={tp}>{tp}</option>)}
+              </select>
+            </div>
+            <div><label style={LS}>จำนวน</label>
+              <input type="number" value={txnForm.qty} onChange={e=>setTxnForm({...txnForm,qty:e.target.value})} style={IS}/>
+            </div>
+          </div>
+          <label style={LS}>ผู้บันทึก</label>
+          <input value={txnForm.recorder} onChange={e=>setTxnForm({...txnForm,recorder:e.target.value})} style={{...IS,marginBottom:8}}/>
+          {txnForm.type==="ยืม" && (
+            <>
+              <label style={LS}>ชื่อผู้ยืม</label>
+              <input value={txnForm.borrower} onChange={e=>setTxnForm({...txnForm,borrower:e.target.value})} style={{...IS,marginBottom:8}}/>
+              <label style={LS}>กำหนดคืน</label>
+              <input type="date" value={txnForm.returnDate} onChange={e=>setTxnForm({...txnForm,returnDate:e.target.value})} style={{...IS,marginBottom:8}}/>
+            </>
+          )}
+          <label style={LS}>หมายเหตุ</label>
+          <input value={txnForm.note} onChange={e=>setTxnForm({...txnForm,note:e.target.value})} style={{...IS,marginBottom:12}}/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+            <button onClick={()=>setView("txn")} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+            <button onClick={addTxn} style={{padding:"11px",borderRadius:10,border:"none",background:C.gray,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
+          </div>
+        </Card>
       )}
     </div>
   );
 }
 
+// ─── TASK MANAGEMENT PAGE ────────────────────────────────────
+const TASK_CATS = ["ซ่อมบำรุง","ชั่งน้ำหนัก","ฉีดวัคซีน","ทำความสะอาด","บันทึกข้อมูล","ตรวจสอบ","อื่นๆ"];
+const TASK_PRIORITY = ["สูง","กลาง","ต่ำ"];
+const TASK_STATUS = ["รอดำเนินการ","กำลังดำเนินการ","เสร็จแล้ว","ยกเลิก"];
 
+function TaskPage({lang="th"}) {
+  const [tasks, setTasks] = useState(INIT_TASKS);
+  const [showAdd, setShowAdd] = useState(false);
+  const [filterStatus, setFilterStatus] = useState("ทั้งหมด");
+  const [form, setForm] = useState({ title:"", desc:"", assignedBy:"", assignedTo:"", farm:FARMS[0], house:"เล้า 1", cat:"ซ่อมบำรุง", dueDate:today(), priority:"กลาง", note:"" });
+
+  const priorityColor = p => p==="สูง"?C.red:p==="กลาง"?C.orange:C.teal;
+  const priorityBg    = p => p==="สูง"?C.redPale:p==="กลาง"?C.orangePale:C.tealPale;
+  const statusColor   = s => s==="เสร็จแล้ว"?C.teal:s==="กำลังดำเนินการ"?C.blue:s==="ยกเลิก"?C.gray:C.orange;
+
+  const statuses = ["ทั้งหมด", ...TASK_STATUS];
+  const filtered = filterStatus==="ทั้งหมด" ? tasks : tasks.filter(tk=>tk.status===filterStatus);
+
+  const addTask = () => {
+    if (!form.title) return;
+    setTasks(prev => [{ id:"TASK-"+String(Date.now()).slice(-6), createdDate:today(), ...form, status:"รอดำเนินการ", progress:0, time:new Date().toLocaleString("th-TH") }, ...prev]);
+    setForm({ title:"", desc:"", assignedBy:"", assignedTo:"", farm:FARMS[0], house:"เล้า 1", cat:"ซ่อมบำรุง", dueDate:today(), priority:"กลาง", note:"" });
+    setShowAdd(false);
+  };
+
+  const updateProgress = (id, val) =>
+    setTasks(prev => prev.map(tk => tk.id===id ? {...tk, progress:Math.max(0,Math.min(100,val))} : tk));
+
+  const updateStatus = (id, status) =>
+    setTasks(prev => prev.map(tk => tk.id===id ? {...tk, status, progress:status==="เสร็จแล้ว"?100:tk.progress} : tk));
+
+  return (
+    <div>
+      <SectionTitle icon="✅" title="งานที่มอบหมาย" color={C.purple}/>
+
+      <div style={{overflowX:"auto",marginBottom:12}}>
+        <div style={{display:"flex",gap:6,paddingBottom:4}}>
+          {statuses.map(s=>(
+            <button key={s} onClick={()=>setFilterStatus(s)} style={{
+              flexShrink:0,padding:"7px 12px",borderRadius:10,border:"1.5px solid",fontSize:12,fontWeight:600,cursor:"pointer",
+              borderColor:filterStatus===s?C.purple:C.greenMid,background:filterStatus===s?C.purple:C.white,color:filterStatus===s?C.white:C.textMid,
+            }}>{s}</button>
+          ))}
+        </div>
+      </div>
+
+      {filtered.map(task=>(
+        <Card key={task.id} style={{border:`1.5px solid ${priorityBg(task.priority)}`,marginBottom:10}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:6}}>
+            <div style={{flex:1,paddingRight:8}}>
+              <div style={{fontWeight:700,fontSize:14,color:C.text}}>{task.title}</div>
+              <div style={{fontSize:11,color:C.textMid}}>{task.farm} — {task.house} · {task.cat}</div>
+              {task.desc && <div style={{fontSize:12,color:C.textMid,marginTop:2}}>{task.desc}</div>}
+            </div>
+            <Pill label={task.priority} color={priorityColor(task.priority)} bg={priorityBg(task.priority)}/>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:4,marginBottom:8,fontSize:11,color:C.textMid}}>
+            <span>มอบหมายโดย: <b>{task.assignedBy}</b></span>
+            <span>ผู้รับงาน: <b>{task.assignedTo}</b></span>
+            <span>กำหนดส่ง: <b style={{color:new Date(task.dueDate)<new Date()&&task.status!=="เสร็จแล้ว"?C.red:C.text}}>{task.dueDate}</b></span>
+            <span>สร้าง: {task.createdDate}</span>
+          </div>
+          <div style={{marginBottom:8}}>
+            <div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:C.textMid,marginBottom:4}}>
+              <span>ความคืบหน้า</span>
+              <span style={{fontWeight:700,color:task.progress>=100?C.teal:C.text}}>{task.progress}%</span>
+            </div>
+            <div style={{background:C.greenMid,borderRadius:6,height:8,overflow:"hidden"}}>
+              <div style={{height:"100%",borderRadius:6,background:task.progress>=100?C.teal:C.blue,width:`${task.progress}%`,transition:"width .3s"}}/>
+            </div>
+            <input type="range" min="0" max="100" value={task.progress}
+              onChange={e=>updateProgress(task.id,+e.target.value)}
+              style={{width:"100%",marginTop:4,accentColor:C.blue}}/>
+          </div>
+          <div style={{display:"flex",gap:5,flexWrap:"wrap"}}>
+            {TASK_STATUS.map(s=>(
+              <button key={s} onClick={()=>updateStatus(task.id,s)} style={{
+                padding:"5px 9px",borderRadius:8,border:"1.5px solid",fontSize:11,fontWeight:600,cursor:"pointer",
+                borderColor:task.status===s?statusColor(s):C.greenMid,
+                background:task.status===s?statusColor(s):C.white,
+                color:task.status===s?C.white:C.textMid,
+              }}>{s}</button>
+            ))}
+          </div>
+        </Card>
+      ))}
+
+      {filtered.length===0 && <div style={{textAlign:"center",color:C.textLight,padding:30}}>ไม่มีงานในสถานะนี้</div>}
+
+      {showAdd ? (
+        <Card>
+          <div style={{fontWeight:700,marginBottom:10,color:C.text,fontSize:15}}>เพิ่มงานใหม่</div>
+          <label style={LS}>ชื่องาน</label>
+          <input value={form.title} onChange={e=>setForm({...form,title:e.target.value})} style={{...IS,marginBottom:8}} placeholder="เช่น ตรวจระบบน้ำเล้า 1"/>
+          <label style={LS}>รายละเอียด</label>
+          <input value={form.desc} onChange={e=>setForm({...form,desc:e.target.value})} style={{...IS,marginBottom:8}}/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>ฟาร์ม</label>
+              <select value={form.farm} onChange={e=>setForm({...form,farm:e.target.value,house:"เล้า 1"})} style={IS}>
+                {FARMS.map(f=><option key={f}>{f}</option>)}
+              </select>
+            </div>
+            <div><label style={LS}>เล้า</label>
+              <select value={form.house} onChange={e=>setForm({...form,house:e.target.value})} style={IS}>
+                {(HOUSES[form.farm]||[]).map(h=><option key={h}>{h}</option>)}
+              </select>
+            </div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>ประเภทงาน</label>
+              <select value={form.cat} onChange={e=>setForm({...form,cat:e.target.value})} style={IS}>
+                {TASK_CATS.map(c=><option key={c}>{c}</option>)}
+              </select>
+            </div>
+            <div><label style={LS}>ความสำคัญ</label>
+              <select value={form.priority} onChange={e=>setForm({...form,priority:e.target.value})} style={IS}>
+                {TASK_PRIORITY.map(p=><option key={p}>{p}</option>)}
+              </select>
+            </div>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+            <div><label style={LS}>มอบหมายโดย</label>
+              <input value={form.assignedBy} onChange={e=>setForm({...form,assignedBy:e.target.value})} style={IS}/>
+            </div>
+            <div><label style={LS}>ผู้รับงาน</label>
+              <input value={form.assignedTo} onChange={e=>setForm({...form,assignedTo:e.target.value})} style={IS}/>
+            </div>
+          </div>
+          <label style={LS}>กำหนดส่ง</label>
+          <input type="date" value={form.dueDate} onChange={e=>setForm({...form,dueDate:e.target.value})} style={{...IS,marginBottom:8}}/>
+          <label style={LS}>หมายเหตุ</label>
+          <input value={form.note} onChange={e=>setForm({...form,note:e.target.value})} style={{...IS,marginBottom:12}}/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+            <button onClick={()=>setShowAdd(false)} style={{padding:"11px",borderRadius:10,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+            <button onClick={addTask} style={{padding:"11px",borderRadius:10,border:"none",background:C.purple,color:C.white,fontWeight:700,cursor:"pointer"}}>บันทึก</button>
+          </div>
+        </Card>
+      ) : (
+        <button onClick={()=>setShowAdd(true)} style={{width:"100%",padding:"13px",borderRadius:12,border:`2px dashed ${C.purple}`,background:C.purplePale,color:C.purple,fontSize:14,fontWeight:700,cursor:"pointer",marginTop:8}}>
+          + เพิ่มงานใหม่
+        </button>
+      )}
+    </div>
+  );
+}
 
 // ─── น้องกุ๊กไก่ บอตเลขา ────────────────────────────────────
 const GUIDE_STEPS = [
@@ -3071,6 +3574,8 @@ export default function App() {
     chem:      <ChemPage lang={lang}/>,
     welfare:   <WelfarePage lang={lang}/>,
     toolsinv:  <ToolsInvPage lang={lang}/>,
+    fcr:       <FCRPage lang={lang}/>,
+    tasks:     <TaskPage lang={lang}/>,
     ai:        <AIPage/>,
     calendar:  <CalendarPage/>,
     dev:       <DevPage/>,
