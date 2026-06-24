@@ -3239,15 +3239,33 @@ const TEAM_IMG = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwg
 
 // ─── INIT EMPLOYEES ──────────────────────────────────────────
 const INIT_EMPLOYEES = [
-  {id:1, name:"อากาศ โพธิ์อ่อง", nickname:"อาจารย์", role:"เจ้าของ", branch:"JK1 - สระบุรี", house:"—", type:"ไทย", nationality:"ไทย", age:50, photo:null},
-  {id:2, name:"พัทธิภรณ์ โพธิ์อ่อง", nickname:"ว่าน", role:"ผจก.ทั่วไป", branch:"JK1 - สระบุรี", house:"—", type:"ไทย", nationality:"ไทย", age:28, photo:null},
-  {id:3, name:"สิริวาภรณ์ โพธิ์อ่อง", nickname:"คิว", role:"ผจก.การเงิน", branch:"JK1 - สระบุรี", house:"—", type:"ไทย", nationality:"ไทย", age:26, photo:null},
-  {id:4, name:"อำนาจ รัตน์ไตรแก้ว", nickname:"บอย", role:"หัวหน้าฟาร์ม", branch:"JK2 - ลพบุรี", house:"—", type:"ไทย", nationality:"ไทย", age:40, photo:null},
+  {id:1, empId:"EMP001", name:"อากาศ โพธิ์อ่อง",    nationality:"ไทย",     farm:FARMS[0], house:"—",      zone:"A", role:"เจ้าของ",      phone:"081-234-5678", lineId:"@akas",    startDate:"2020-01-01", status:"ปฏิบัติงาน", photo:null, note:""},
+  {id:2, empId:"EMP002", name:"พัทธิภรณ์ โพธิ์อ่อง", nationality:"ไทย",     farm:FARMS[0], house:"—",      zone:"A", role:"ผจก.ทั่วไป",   phone:"082-234-5679", lineId:"@wan",     startDate:"2021-03-15", status:"ปฏิบัติงาน", photo:null, note:""},
+  {id:3, empId:"EMP003", name:"สิริวาภรณ์ โพธิ์อ่อง", nationality:"ไทย",    farm:FARMS[0], house:"—",      zone:"A", role:"ผจก.การเงิน",  phone:"083-234-5680", lineId:"@kew",     startDate:"2021-06-01", status:"ปฏิบัติงาน", photo:null, note:""},
+  {id:4, empId:"EMP004", name:"อำนาจ รัตน์ไตรแก้ว",  nationality:"ไทย",     farm:FARMS[1], house:"เล้า 1", zone:"B", role:"หัวหน้าฟาร์ม", phone:"089-111-2222", lineId:"@boy",     startDate:"2022-01-10", status:"ปฏิบัติงาน", photo:null, note:""},
+  {id:5, empId:"EMP005", name:"สมชาย ใจดี",           nationality:"ไทย",     farm:FARMS[1], house:"เล้า 2", zone:"B", role:"พนักงาน",      phone:"087-333-4444", lineId:"@somchai", startDate:"2022-05-20", status:"ปฏิบัติงาน", photo:null, note:""},
+  {id:6, empId:"EMP006", name:"สาว มี",                nationality:"เมียนมา", farm:FARMS[1], house:"เล้า 3", zone:"C", role:"พนักงาน",      phone:"086-555-6666", lineId:"",         startDate:"2023-01-05", status:"ปฏิบัติงาน", photo:null, note:"ต่างด้าว"},
 ];
-const NATIONALITIES = ["ไทย","ลาว","กัมพูชา","พม่า"];
-const EMP_TYPES     = ["ไทย","ต่างด้าว"];
-const EMP_ROLES     = ["เจ้าของ","ผจก.ทั่วไป","ผจก.การเงิน","หัวหน้าฟาร์ม","พนักงาน","สัตวบาล","ช่าง","อื่นๆ"];
-const ALL_HOUSES    = ["—","เล้า 1","เล้า 2","เล้า 3","เล้า 4","เล้า 5","เล้า 6","เล้า 7"];
+const NATIONALITIES  = ["ไทย","เมียนมา","ลาว","กัมพูชา","เวียดนาม"];
+const EMP_ROLES      = ["เจ้าของ","ผจก.ทั่วไป","ผจก.การเงิน","หัวหน้าฟาร์ม","พนักงาน","สัตวบาล","ช่าง","คนขับรถ","อื่นๆ"];
+const EMP_STATUS_OPT = ["ปฏิบัติงาน","ลาออก","พักงาน"];
+const EMP_ZONES      = ["A","B","C","D","—"];
+const ALL_HOUSES     = ["—","เล้า 1","เล้า 2","เล้า 3","เล้า 4","เล้า 5","เล้า 6","เล้า 7"];
+const WELFARE_TYPES  = ["อาหาร","ค่ารักษาพยาบาล","เสื้อผ้า/อุปกรณ์","โบนัส","ค่าเดินทาง","วันลา","ประกันสังคม","อื่นๆ"];
+const DOC_TYPES      = ["บัตรประชาชน","Work Permit","วีซ่า Non-B","Passport","ตม.30","ใบขับขี่","อื่นๆ"];
+
+const INIT_WELFARE_TXN = [
+  {id:1, date:"2025-06-05", empName:"สมชาย ใจดี", farm:FARMS[1], type:"อาหาร",           detail:"ข้าวสาร 25กก. @18บาท", unitPrice:18,  qty:25, unit:"กก.",   total:450, slip1:"",slip2:"",slip3:"",slip4:"",slip5:"", approvedBy:"อากาศ", note:"",               time:"2025-06-05 09:00"},
+  {id:2, date:"2025-06-10", empName:"สาว มี",      farm:FARMS[1], type:"ค่ารักษาพยาบาล", detail:"ค่าหมอ + ยา",           unitPrice:800, qty:1,  unit:"ครั้ง", total:800, slip1:"",slip2:"",slip3:"",slip4:"",slip5:"", approvedBy:"อากาศ", note:"เจ็บป่วยทั่วไป", time:"2025-06-10 14:30"},
+];
+
+const INIT_EMP_DOCS = [
+  {id:1, empId:"EMP005", empName:"สมชาย ใจดี", nationality:"ไทย",     docType:"บัตรประชาชน", docNo:"1-1234-56789-01-2", issueDate:"2015-03-01", expDate:"2025-03-01", photo:"", recorder:"อากาศ", note:"",                 time:"2024-01-01 08:00"},
+  {id:2, empId:"EMP006", empName:"สาว มี",     nationality:"เมียนมา", docType:"Work Permit",  docNo:"WP-2023-001234",   issueDate:"2023-01-05", expDate:"2026-01-05", photo:"", recorder:"อากาศ", note:"",                 time:"2023-01-05 09:00"},
+  {id:3, empId:"EMP006", empName:"สาว มี",     nationality:"เมียนมา", docType:"วีซ่า Non-B",  docNo:"VB-2023-000456",   issueDate:"2023-01-05", expDate:"2026-01-05", photo:"", recorder:"อากาศ", note:"",                 time:"2023-01-05 09:00"},
+  {id:4, empId:"EMP006", empName:"สาว มี",     nationality:"เมียนมา", docType:"Passport",     docNo:"MA12345678",       issueDate:"2020-06-01", expDate:"2030-06-01", photo:"", recorder:"อากาศ", note:"",                 time:"2023-01-05 09:00"},
+  {id:5, empId:"EMP006", empName:"สาว มี",     nationality:"เมียนมา", docType:"ตม.30",        docNo:"TM30-2025-001",    issueDate:"2025-05-15", expDate:"2025-08-15", photo:"", recorder:"อากาศ", note:"แจ้งที่พักอาศัย", time:"2025-05-15 10:00"},
+];
 
 // ─── CONFETTI ────────────────────────────────────────────────
 function Confetti() {
@@ -3287,98 +3305,44 @@ function Confetti() {
   );
 }
 
-// ─── ORG PAGE ────────────────────────────────────────────────
-function OrgPage({lang="th"}) {
-  const [view, setView]           = useState("welcome"); // welcome | list | add | detail
-  const [employees, setEmployees] = useState(INIT_EMPLOYEES);
-  const [showConfetti, setShowConfetti] = useState(true);
-  const [filterBranch, setFilterBranch] = useState("ทั้งหมด");
-  const [filterType, setFilterType]     = useState("ทั้งหมด");
-  const [selId, setSelId]               = useState(null);
-  const [confirmDel, setConfirmDel]     = useState(null);
+// ─── EMP TAB ─────────────────────────────────────────────────
+function EmpTab({employees, setEmployees, flagOf}) {
+  const [view, setView]             = useState("list");
+  const [selEmp, setSelEmp]         = useState(null);
+  const [filterFarm, setFilterFarm] = useState("ทั้งหมด");
+  const [filterStatus, setFilterStatus] = useState("ทั้งหมด");
+  const [search, setSearch]         = useState("");
+  const [confirmDel, setConfirmDel] = useState(null);
 
-  const emptyForm = {name:"",nickname:"",role:"พนักงาน",branch:BRANCHES[0],house:"เล้า 1",type:"ไทย",nationality:"ไทย",age:"",photo:null};
+  const emptyForm = {empId:"", name:"", nationality:"ไทย", farm:FARMS[0], house:"—", zone:"A", role:"พนักงาน", phone:"", lineId:"", startDate:today(), status:"ปฏิบัติงาน", photo:null, note:""};
   const [form, setForm] = useState(emptyForm);
 
-  useEffect(()=>{
-    const t = setTimeout(()=>setShowConfetti(false), 4000);
-    return ()=>clearTimeout(t);
-  },[]);
-
-  const filtered = employees.filter(e=>{
-    if(filterBranch!=="ทั้งหมด" && e.branch!==filterBranch) return false;
-    if(filterType!=="ทั้งหมด" && e.type!==filterType) return false;
+  const filtered = employees.filter(e => {
+    if(filterFarm!=="ทั้งหมด" && e.farm!==filterFarm) return false;
+    if(filterStatus!=="ทั้งหมด" && e.status!==filterStatus) return false;
+    if(search && !e.name.includes(search) && !e.empId.includes(search) && !e.role.includes(search)) return false;
     return true;
   });
 
   const saveEmp = () => {
-    if(!form.name) return;
-    setEmployees(prev=>[...prev,{...form,id:Date.now(),age:+form.age||0}]);
-    setForm(emptyForm); setView("list");
+    if(!form.name.trim()) return;
+    if(selEmp) {
+      setEmployees(prev=>prev.map(e=>e.id===selEmp.id?{...e,...form}:e));
+    } else {
+      const newEmpId = form.empId || ("EMP"+String(employees.length+1).padStart(3,"0"));
+      setEmployees(prev=>[...prev,{...form,id:Date.now(),empId:newEmpId}]);
+    }
+    setForm(emptyForm); setSelEmp(null); setView("list");
   };
 
-  const flagOf = nat => ({"ไทย":"🇹🇭","ลาว":"🇱🇦","กัมพูชา":"🇰🇭","พม่า":"🇲🇲"}[nat]||"🌏");
   const roleColor = r => ({"เจ้าของ":C.orange,"ผจก.ทั่วไป":C.blue,"ผจก.การเงิน":C.purple,"หัวหน้าฟาร์ม":C.green}[r]||C.gray);
+  const statusColor = s => ({"ปฏิบัติงาน":C.green,"ลาออก":C.red,"พักงาน":C.orange}[s]||C.gray);
 
-  // ── WELCOME ──
-  if(view==="welcome") return (
+  if(view==="add"||view==="edit") return (
     <div>
-      {showConfetti && <Confetti/>}
-
-      {/* Team image hero */}
-      <div style={{position:"relative",margin:"-16px -16px 0",borderRadius:"0 0 24px 24px",overflow:"hidden"}}>
-        <img src={TEAM_IMG} style={{width:"100%",display:"block"}} alt="Our Team"/>
-        <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom,transparent 50%,rgba(0,0,30,0.75) 100%)"}}/>
-        <div style={{position:"absolute",bottom:20,left:0,right:0,textAlign:"center",color:"#fff"}}>
-          <div style={{fontFamily:"serif",fontSize:28,fontWeight:700,textShadow:"0 2px 12px rgba(0,0,0,0.6)",marginBottom:4}}>
-            {lang==="en"?"Welcome!":lang==="lo"?"ຍິນດີຕ້ອນຮັບ!":lang==="km"?"សូមស្វាគមន៍!":"ยินดีต้อนรับ! 🎉"}
-          </div>
-          <div style={{fontSize:14,opacity:0.9}}>
-            {lang==="en"?"This is our organization":lang==="lo"?"ນີ້ແມ່ນອົງກອນຂອງພວກເຮົາ":lang==="km"?"នេះជាអង្គការរបស់យើង":"นี่คือองค์กรของเรา"}
-          </div>
-        </div>
-      </div>
-
-      {/* Welcome card */}
-      <div style={{background:"linear-gradient(135deg,#1A3A8A,#2457C5)",margin:"16px 0",borderRadius:20,padding:"20px 18px",color:"#fff",textAlign:"center"}}>
-        <div style={{fontSize:40,marginBottom:8}}>🐔</div>
-        <div style={{fontFamily:"serif",fontSize:20,fontWeight:700,marginBottom:6}}>Junkum Farm</div>
-        <div style={{fontSize:13,opacity:0.85,lineHeight:1.6}}>
-          จันทร์คำฟาร์ม · พัฒนานิคม ลพบุรี + สระบุรี{"\n"}
-          ทีมงานที่แข็งแกร่ง ร่วมกันพัฒนาฟาร์มไก่เนื้อ
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginTop:14}}>
-          {[
-            [employees.length,"พนักงาน"],
-            [BRANCHES.length,"สาขา"],
-            ["9","เล้า"],
-          ].map(([v,l])=>(
-            <div key={l} style={{background:"rgba(255,255,255,0.15)",borderRadius:12,padding:"8px"}}>
-              <div style={{fontSize:20,fontWeight:700}}>{v}</div>
-              <div style={{fontSize:11,opacity:0.8}}>{l}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <button onClick={()=>setView("list")} style={{
-        width:"100%",padding:"16px",borderRadius:16,border:"none",
-        background:`linear-gradient(135deg,${C.green},${C.greenL})`,
-        color:"#fff",fontSize:16,fontWeight:700,cursor:"pointer",
-        boxShadow:`0 4px 16px ${C.green}44`
-      }}>
-        👥 ดูพนักงานทั้งหมด →
-      </button>
-    </div>
-  );
-
-  // ── ADD FORM ──
-  if(view==="add") return (
-    <div>
-      <button onClick={()=>setView("list")} style={{background:"none",border:"none",color:C.green,fontWeight:700,fontSize:14,cursor:"pointer",padding:"0 0 14px"}}>← กลับ</button>
-      <SectionTitle icon="👤" title="เพิ่มพนักงาน" color={C.blue}/>
+      <button onClick={()=>{setView("list");setSelEmp(null);setForm(emptyForm);}} style={{background:"none",border:"none",color:C.green,fontWeight:700,fontSize:14,cursor:"pointer",padding:"0 0 14px"}}>← กลับ</button>
+      <SectionTitle icon="👤" title={view==="edit"?"แก้ไขพนักงาน":"เพิ่มพนักงาน"} color={C.blue}/>
       <Card>
-        {/* Photo */}
         <div style={{textAlign:"center",marginBottom:14}}>
           <div style={{position:"relative",display:"inline-block"}}>
             <div style={{width:72,height:72,borderRadius:"50%",background:C.greenPale,border:`2px solid ${C.greenMid}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,overflow:"hidden"}}>
@@ -3392,167 +3356,468 @@ function OrgPage({lang="th"}) {
           </div>
         </div>
 
-        <label style={LS}>ชื่อ-นามสกุล</label>
-        <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="ชื่อเต็ม" style={{...IS,marginBottom:8}}/>
-
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
-          <div><label style={LS}>ชื่อเล่น</label><input value={form.nickname} onChange={e=>setForm({...form,nickname:e.target.value})} placeholder="ชื่อเล่น" style={IS}/></div>
-          <div><label style={LS}>อายุ</label><input type="number" value={form.age} onChange={e=>setForm({...form,age:e.target.value})} placeholder="ปี" style={IS}/></div>
+          <div><label style={LS}>รหัสพนักงาน</label><input value={form.empId} onChange={e=>setForm({...form,empId:e.target.value})} placeholder="EMP001" style={IS}/></div>
+          <div><label style={LS}>สัญชาติ</label><select value={form.nationality} onChange={e=>setForm({...form,nationality:e.target.value})} style={IS}>{NATIONALITIES.map(n=><option key={n}>{n}</option>)}</select></div>
         </div>
 
-        <label style={LS}>ตำแหน่ง</label>
+        <label style={LS}>ชื่อ-นามสกุล *</label>
+        <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="ชื่อเต็ม" style={{...IS,marginBottom:8}}/>
+
+        <label style={LS}>หน้าที่/ตำแหน่ง</label>
         <select value={form.role} onChange={e=>setForm({...form,role:e.target.value})} style={{...IS,marginBottom:8}}>
           {EMP_ROLES.map(r=><option key={r}>{r}</option>)}
         </select>
 
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
-          <div>
-            <label style={LS}>ประเภท</label>
-            <select value={form.type} onChange={e=>setForm({...form,type:e.target.value})} style={IS}>
-              {EMP_TYPES.map(t=><option key={t}>{t}</option>)}
-            </select>
-          </div>
-          <div>
-            <label style={LS}>สัญชาติ</label>
-            <select value={form.nationality} onChange={e=>setForm({...form,nationality:e.target.value})} style={IS}>
-              {NATIONALITIES.map(n=><option key={n}>{n}</option>)}
-            </select>
-          </div>
+          <div><label style={LS}>ฟาร์ม</label><select value={form.farm} onChange={e=>setForm({...form,farm:e.target.value})} style={IS}>{FARMS.map(f=><option key={f}>{f}</option>)}</select></div>
+          <div><label style={LS}>เล้า</label><select value={form.house} onChange={e=>setForm({...form,house:e.target.value})} style={IS}>{ALL_HOUSES.map(h=><option key={h}>{h}</option>)}</select></div>
         </div>
 
-        <label style={LS}>สาขา</label>
-        <select value={form.branch} onChange={e=>setForm({...form,branch:e.target.value})} style={{...IS,marginBottom:8}}>
-          {BRANCHES.map(b=><option key={b}>{b}</option>)}
-        </select>
-
-        <label style={LS}>เล้าที่รับผิดชอบ</label>
-        <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:14}}>
-          {ALL_HOUSES.map(h=>(
-            <button key={h} onClick={()=>setForm({...form,house:h})} style={{
-              padding:"5px 12px",borderRadius:9,border:"1.5px solid",fontSize:12,fontWeight:600,cursor:"pointer",
-              borderColor:form.house===h?C.green:C.greenMid,background:form.house===h?C.green:C.white,color:form.house===h?C.white:C.textMid,
-            }}>{h}</button>
-          ))}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+          <div><label style={LS}>โซนเวร</label><select value={form.zone} onChange={e=>setForm({...form,zone:e.target.value})} style={IS}>{EMP_ZONES.map(z=><option key={z}>{z}</option>)}</select></div>
+          <div><label style={LS}>สถานะ</label><select value={form.status} onChange={e=>setForm({...form,status:e.target.value})} style={IS}>{EMP_STATUS_OPT.map(s=><option key={s}>{s}</option>)}</select></div>
         </div>
+
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+          <div><label style={LS}>เบอร์โทร</label><input value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})} placeholder="08x-xxx-xxxx" style={IS}/></div>
+          <div><label style={LS}>LINE ID</label><input value={form.lineId} onChange={e=>setForm({...form,lineId:e.target.value})} placeholder="@..." style={IS}/></div>
+        </div>
+
+        <label style={LS}>วันเริ่มงาน</label>
+        <input type="date" value={form.startDate} onChange={e=>setForm({...form,startDate:e.target.value})} style={{...IS,marginBottom:8}}/>
+
+        <label style={LS}>หมายเหตุ</label>
+        <input value={form.note} onChange={e=>setForm({...form,note:e.target.value})} placeholder="บันทึกเพิ่มเติม" style={{...IS,marginBottom:14}}/>
 
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-          <button onClick={()=>setView("list")} style={{padding:"12px",borderRadius:12,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
-          <button onClick={saveEmp} style={{padding:"12px",borderRadius:12,border:"none",background:C.blue,color:"#fff",fontWeight:700,cursor:"pointer"}}>เพิ่มพนักงาน ✓</button>
+          <button onClick={()=>{setView("list");setSelEmp(null);setForm(emptyForm);}} style={{padding:"12px",borderRadius:12,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+          <button onClick={saveEmp} style={{padding:"12px",borderRadius:12,border:"none",background:C.blue,color:"#fff",fontWeight:700,cursor:"pointer"}}>
+            {view==="edit"?"บันทึก ✓":"เพิ่มพนักงาน ✓"}
+          </button>
         </div>
       </Card>
     </div>
   );
 
-  // ── LIST ──
   return (
     <div>
-      {/* Sticky top bar with + button */}
-      <div style={{position:"sticky",top:0,zIndex:50,background:"rgba(253,254,249,0.97)",backdropFilter:"blur(8px)",padding:"10px 0 8px",marginBottom:10,display:"flex",justifyContent:"space-between",alignItems:"center",borderBottom:`1px solid ${C.greenMid}`}}>
-        <div style={{display:"flex",gap:8,alignItems:"center"}}>
-          <button onClick={()=>setView("welcome")} style={{background:"none",border:"none",color:C.green,fontSize:13,fontWeight:600,cursor:"pointer",padding:0}}>← หน้าแรก</button>
-          <span style={{fontFamily:"serif",fontSize:16,fontWeight:700,color:"#1A3A8A"}}>👥 พนักงาน</span>
-        </div>
-        <button onClick={()=>setView("add")} style={{
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+        <div style={{fontSize:13,color:C.textMid}}>{filtered.length} คน</div>
+        <button onClick={()=>{setSelEmp(null);setForm(emptyForm);setView("add");}} style={{
           display:"flex",alignItems:"center",gap:5,
           padding:"8px 16px",borderRadius:20,border:"none",
           background:"linear-gradient(135deg,#1A3A8A,#2457C5)",
           color:"#fff",fontSize:13,fontWeight:700,cursor:"pointer",
-          boxShadow:"0 3px 10px rgba(26,58,138,0.35)"
-        }}>
-          <span style={{fontSize:18,lineHeight:1}}>＋</span> เพิ่มพนักงาน
-        </button>
+        }}>＋ เพิ่มพนักงาน</button>
       </div>
 
-      {/* Filters */}
-      <div style={{display:"flex",gap:6,marginBottom:8,flexWrap:"wrap"}}>
-        {["ทั้งหมด",...BRANCHES].map(b=>(
-          <button key={b} onClick={()=>setFilterBranch(b)} style={{
-            padding:"5px 10px",borderRadius:9,border:"1.5px solid",fontSize:11,fontWeight:600,cursor:"pointer",
-            borderColor:filterBranch===b?C.blue:C.greenMid,background:filterBranch===b?C.blue:C.white,color:filterBranch===b?C.white:C.textMid,
-          }}>{b==="ทั้งหมด"?"ทั้งหมด":b.split(" - ")[0]}</button>
+      <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 ค้นหาชื่อ รหัส ตำแหน่ง" style={{...IS,marginBottom:8}}/>
+
+      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:6}}>
+        {["ทั้งหมด",...FARMS].map(f=>(
+          <button key={f} onClick={()=>setFilterFarm(f)} style={{padding:"4px 8px",borderRadius:8,border:"1.5px solid",fontSize:10,fontWeight:600,cursor:"pointer",borderColor:filterFarm===f?C.blue:C.greenMid,background:filterFarm===f?C.blue:C.white,color:filterFarm===f?C.white:C.textMid}}>{f==="ทั้งหมด"?"ทั้งฟาร์ม":f}</button>
         ))}
-        {["ทั้งหมด","ไทย","ต่างด้าว"].map(t=>(
-          <button key={t} onClick={()=>setFilterType(t)} style={{
-            padding:"5px 10px",borderRadius:9,border:"1.5px solid",fontSize:11,fontWeight:600,cursor:"pointer",
-            borderColor:filterType===t?C.purple:C.greenMid,background:filterType===t?C.purple:C.white,color:filterType===t?C.white:C.textMid,
-          }}>{t}</button>
+      </div>
+      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:10}}>
+        {["ทั้งหมด",...EMP_STATUS_OPT].map(s=>(
+          <button key={s} onClick={()=>setFilterStatus(s)} style={{padding:"4px 8px",borderRadius:8,border:"1.5px solid",fontSize:10,fontWeight:600,cursor:"pointer",borderColor:filterStatus===s?C.purple:C.greenMid,background:filterStatus===s?C.purple:C.white,color:filterStatus===s?C.white:C.textMid}}>{s==="ทั้งหมด"?"ทุกสถานะ":s}</button>
         ))}
       </div>
 
-      <div style={{fontSize:12,color:C.textLight,marginBottom:12}}>{filtered.length} คน</div>
-
-      {/* Employee grid */}
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+      {filtered.length===0 && <div style={{textAlign:"center",color:C.textLight,padding:30,fontSize:13}}>ไม่พบพนักงาน</div>}
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
         {filtered.map(e=>{
           const rc = roleColor(e.role);
+          const sc = statusColor(e.status);
           return (
-            <div key={e.id} onClick={()=>{setSelId(e.id);}} style={{
-              background:C.white,borderRadius:16,padding:"14px 12px",
-              border:`1.5px solid ${rc}22`,cursor:"pointer",
-              boxShadow:"0 2px 10px rgba(0,0,0,0.06)",textAlign:"center"
-            }}>
-              <div style={{width:56,height:56,borderRadius:"50%",margin:"0 auto 8px",background:e.photo?"transparent":C.greenPale,border:`2px solid ${rc}44`,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24}}>
-                {e.photo?<img src={e.photo} style={{width:"100%",height:"100%",objectFit:"cover"}} alt=""/>:"👤"}
-              </div>
-              <div style={{fontWeight:700,fontSize:13,color:C.ink,marginBottom:2}}>{e.nickname||e.name.split(" ")[0]}</div>
-              <div style={{fontSize:10,color:rc,fontWeight:600,marginBottom:4}}>{e.role}</div>
-              <div style={{display:"flex",justifyContent:"center",gap:4,flexWrap:"wrap"}}>
-                <span style={{fontSize:9,background:C.greenPale,color:C.green,borderRadius:5,padding:"1px 5px"}}>{e.branch.split(" - ")[0]}</span>
-                {e.house!=="—"&&<span style={{fontSize:9,background:C.bluePale,color:C.blue,borderRadius:5,padding:"1px 5px"}}>{e.house}</span>}
-                <span style={{fontSize:12}}>{flagOf(e.nationality)}</span>
-              </div>
-              {/* Delete */}
-              {confirmDel===e.id?(
-                <div style={{marginTop:8,display:"flex",gap:4}} onClick={ev=>ev.stopPropagation()}>
-                  <button onClick={()=>{setEmployees(p=>p.filter(x=>x.id!==e.id));setConfirmDel(null);}} style={{flex:1,padding:"4px",borderRadius:7,border:"none",background:C.red,color:"#fff",fontSize:10,fontWeight:700,cursor:"pointer"}}>ลบ</button>
-                  <button onClick={()=>setConfirmDel(null)} style={{flex:1,padding:"4px",borderRadius:7,border:`1px solid ${C.greenMid}`,background:C.white,color:C.textMid,fontSize:10,cursor:"pointer"}}>ยกเลิก</button>
+            <div key={e.id} style={{background:C.white,borderRadius:16,padding:"14px",border:`1.5px solid ${rc}22`,boxShadow:"0 2px 8px rgba(0,0,0,0.05)"}}>
+              <div style={{display:"flex",gap:12,alignItems:"center"}}>
+                <div style={{width:52,height:52,borderRadius:"50%",background:C.greenPale,border:`2px solid ${rc}55`,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0}}>
+                  {e.photo?<img src={e.photo} style={{width:"100%",height:"100%",objectFit:"cover"}} alt=""/>:"👤"}
                 </div>
-              ):(
-                <button onClick={ev=>{ev.stopPropagation();setConfirmDel(e.id);}} style={{marginTop:6,padding:"3px 10px",borderRadius:7,border:`1px solid ${C.red}`,background:C.redPale,color:C.red,fontSize:10,cursor:"pointer"}}>🗑️ ลบ</button>
-              )}
+                <div style={{flex:1,minWidth:0}}>
+                  <div style={{fontWeight:700,fontSize:14,color:C.text}}>{e.name} {flagOf(e.nationality)}</div>
+                  <div style={{fontSize:11,color:rc,fontWeight:600}}>{e.role}</div>
+                  <div style={{fontSize:10,color:C.textLight,marginTop:2}}>{e.empId} · {e.farm}{e.house!=="—"?` · ${e.house}`:""}</div>
+                </div>
+                <div style={{display:"flex",flexDirection:"column",gap:4,alignItems:"flex-end",flexShrink:0}}>
+                  <span style={{fontSize:10,background:sc+"22",color:sc,borderRadius:6,padding:"2px 6px",fontWeight:600}}>{e.status}</span>
+                  {e.phone&&<div style={{fontSize:10,color:C.textLight}}>📞 {e.phone}</div>}
+                </div>
+              </div>
+              <div style={{display:"flex",gap:4,flexWrap:"wrap",marginTop:8}}>
+                {e.zone&&e.zone!=="—"&&<span style={{fontSize:10,background:C.grayPale,color:C.gray,borderRadius:5,padding:"2px 6px"}}>โซน {e.zone}</span>}
+                {e.startDate&&<span style={{fontSize:10,background:C.bluePale,color:C.blue,borderRadius:5,padding:"2px 6px"}}>เริ่ม {e.startDate}</span>}
+                {e.lineId&&<span style={{fontSize:10,background:"#EFF9E8",color:"#27AE60",borderRadius:5,padding:"2px 6px"}}>💬 {e.lineId}</span>}
+                {e.note&&<span style={{fontSize:10,background:C.yellowPale||C.grayPale,color:C.textMid,borderRadius:5,padding:"2px 6px"}}>📝 {e.note}</span>}
+              </div>
+              <div style={{display:"flex",gap:6,marginTop:10}}>
+                <button onClick={()=>{setSelEmp(e);setForm({...e,photo:e.photo||null});setView("edit");}} style={{flex:1,padding:"7px",borderRadius:9,border:`1.5px solid ${C.blue}`,background:C.bluePale,color:C.blue,fontSize:12,fontWeight:700,cursor:"pointer"}}>✏️ แก้ไข</button>
+                {confirmDel===e.id?(
+                  <>
+                    <button onClick={()=>{setEmployees(p=>p.filter(x=>x.id!==e.id));setConfirmDel(null);}} style={{flex:1,padding:"7px",borderRadius:9,border:"none",background:C.red,color:"#fff",fontSize:12,fontWeight:700,cursor:"pointer"}}>ยืนยันลบ</button>
+                    <button onClick={()=>setConfirmDel(null)} style={{flex:0.6,padding:"7px",borderRadius:9,border:`1px solid ${C.greenMid}`,background:C.white,color:C.textMid,fontSize:11,cursor:"pointer"}}>ยกเลิก</button>
+                  </>
+                ):(
+                  <button onClick={()=>setConfirmDel(e.id)} style={{padding:"7px 14px",borderRadius:9,border:`1.5px solid ${C.red}`,background:C.redPale,color:C.red,fontSize:12,cursor:"pointer"}}>🗑️</button>
+                )}
+              </div>
             </div>
           );
         })}
       </div>
-
-      {/* Detail modal */}
-      {selId && (()=>{
-        const e = employees.find(x=>x.id===selId);
-        if(!e) return null;
-        const rc = roleColor(e.role);
-        return (
-          <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.55)",zIndex:300,display:"flex",alignItems:"flex-end"}} onClick={()=>setSelId(null)}>
-            <div style={{background:C.white,borderRadius:"22px 22px 0 0",width:"100%",maxWidth:480,margin:"0 auto",padding:"22px 18px 40px"}} onClick={ev=>ev.stopPropagation()}>
-              <div style={{display:"flex",gap:14,alignItems:"center",marginBottom:16}}>
-                <div style={{width:64,height:64,borderRadius:"50%",background:e.photo?"transparent":C.greenPale,border:`2px solid ${rc}`,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28}}>
-                  {e.photo?<img src={e.photo} style={{width:"100%",height:"100%",objectFit:"cover"}} alt=""/>:"👤"}
-                </div>
-                <div>
-                  <div style={{fontWeight:700,fontSize:18,color:C.ink}}>{e.name}</div>
-                  {e.nickname&&<div style={{fontSize:13,color:C.textMid}}>"{e.nickname}"</div>}
-                  <div style={{fontSize:12,color:rc,fontWeight:600}}>{e.role}</div>
-                </div>
-                <button onClick={()=>setSelId(null)} style={{marginLeft:"auto",background:C.grayPale,border:"none",borderRadius:"50%",width:32,height:32,fontSize:16,cursor:"pointer"}}>×</button>
-              </div>
-              {[
-                ["สาขา",e.branch],["เล้า",e.house],["ประเภท",e.type],
-                ["สัญชาติ",flagOf(e.nationality)+" "+e.nationality],["อายุ",e.age+" ปี"],
-              ].map(([k,v])=>(
-                <div key={k} style={{display:"flex",justifyContent:"space-between",padding:"8px 0",borderBottom:`1px dashed ${C.greenMid}`,fontSize:14}}>
-                  <span style={{color:C.textMid}}>{k}</span>
-                  <span style={{fontWeight:700,color:C.ink}}>{v}</span>
-                </div>
-              ))}
-              <div style={{marginTop:12,background:C.bluePale,borderRadius:12,padding:"10px 14px",fontSize:12,color:C.blue}}>
-                📄 เชื่อมกับเอกสารแรงงาน → ดูได้ที่หมวดสวัสดิการ
-              </div>
-            </div>
-          </div>
-        );
-      })()}
     </div>
   );
 }
+
+// ─── WELFARE TAB ──────────────────────────────────────────────
+function WelfareEmpTab({txns, setTxns, employees}) {
+  const [view, setView]             = useState("list");
+  const [filterFarm, setFilterFarm] = useState("ทั้งหมด");
+  const [filterType, setFilterType] = useState("ทั้งหมด");
+  const [confirmDel, setConfirmDel] = useState(null);
+  const emptyForm = {date:today(), empName:"", farm:FARMS[0], type:WELFARE_TYPES[0], detail:"", unitPrice:"", qty:"1", unit:"ครั้ง", total:"", slip1:"",slip2:"",slip3:"",slip4:"",slip5:"", approvedBy:"", note:""};
+  const [form, setForm] = useState(emptyForm);
+
+  const filtered = txns.filter(t => {
+    if(filterFarm!=="ทั้งหมด" && t.farm!==filterFarm) return false;
+    if(filterType!=="ทั้งหมด" && t.type!==filterType) return false;
+    return true;
+  }).sort((a,b)=>b.date.localeCompare(a.date));
+
+  const totalAmt = filtered.reduce((s,t)=>s+Number(t.total||0),0);
+
+  const calcTotal = f => (parseFloat(f.unitPrice)||0)*(parseFloat(f.qty)||0);
+
+  const saveTxn = () => {
+    if(!form.empName||!form.detail) return;
+    const t = calcTotal(form);
+    setTxns(prev=>[{...form,id:Date.now(),unitPrice:+form.unitPrice||0,qty:+form.qty||0,total:t||parseFloat(form.total)||0,time:new Date().toLocaleString("th-TH")},...prev]);
+    setForm(emptyForm); setView("list");
+  };
+
+  if(view==="add") return (
+    <div>
+      <button onClick={()=>setView("list")} style={{background:"none",border:"none",color:C.brown,fontWeight:700,fontSize:14,cursor:"pointer",padding:"0 0 14px"}}>← กลับ</button>
+      <SectionTitle icon="💛" title="บันทึกสวัสดิการ" color={C.brown}/>
+      <Card>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+          <div><label style={LS}>วันที่</label><input type="date" value={form.date} onChange={e=>setForm({...form,date:e.target.value})} style={IS}/></div>
+          <div><label style={LS}>ฟาร์ม</label><select value={form.farm} onChange={e=>setForm({...form,farm:e.target.value})} style={IS}>{FARMS.map(f=><option key={f}>{f}</option>)}</select></div>
+        </div>
+
+        <label style={LS}>ชื่อพนักงาน</label>
+        <select value={form.empName} onChange={e=>setForm({...form,empName:e.target.value})} style={{...IS,marginBottom:8}}>
+          <option value="">-- เลือกพนักงาน --</option>
+          {employees.filter(e=>e.status==="ปฏิบัติงาน").map(e=><option key={e.id} value={e.name}>{e.name}</option>)}
+        </select>
+
+        <label style={LS}>ประเภทสวัสดิการ</label>
+        <select value={form.type} onChange={e=>setForm({...form,type:e.target.value})} style={{...IS,marginBottom:8}}>
+          {WELFARE_TYPES.map(t=><option key={t}>{t}</option>)}
+        </select>
+
+        <label style={LS}>รายละเอียด</label>
+        <input value={form.detail} onChange={e=>setForm({...form,detail:e.target.value})} placeholder="รายละเอียดสวัสดิการ" style={{...IS,marginBottom:8}}/>
+
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:8}}>
+          <div>
+            <label style={LS}>ราคา/หน่วย</label>
+            <input type="number" value={form.unitPrice}
+              onChange={e=>setForm(f=>({...f,unitPrice:e.target.value,total:String((parseFloat(e.target.value)||0)*(parseFloat(f.qty)||0))}))}
+              placeholder="0" style={IS}/>
+          </div>
+          <div>
+            <label style={LS}>จำนวน</label>
+            <input type="number" value={form.qty}
+              onChange={e=>setForm(f=>({...f,qty:e.target.value,total:String((parseFloat(f.unitPrice)||0)*(parseFloat(e.target.value)||0))}))}
+              placeholder="1" style={IS}/>
+          </div>
+          <div><label style={LS}>หน่วย</label><input value={form.unit} onChange={e=>setForm({...form,unit:e.target.value})} placeholder="ครั้ง" style={IS}/></div>
+        </div>
+
+        <div style={{background:C.brownPale,borderRadius:10,padding:"10px 14px",marginBottom:10,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <span style={{color:C.brown,fontWeight:600,fontSize:13}}>มูลค่ารวม</span>
+          <span style={{fontSize:18,fontWeight:700,color:C.brown}}>{fmt(calcTotal(form)||parseFloat(form.total)||0)} บาท</span>
+        </div>
+
+        <label style={LS}>ผู้อนุมัติ</label>
+        <input value={form.approvedBy} onChange={e=>setForm({...form,approvedBy:e.target.value})} placeholder="ชื่อผู้อนุมัติ" style={{...IS,marginBottom:8}}/>
+
+        <label style={LS}>หมายเหตุ</label>
+        <input value={form.note} onChange={e=>setForm({...form,note:e.target.value})} placeholder="บันทึกเพิ่มเติม" style={{...IS,marginBottom:14}}/>
+
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+          <button onClick={()=>setView("list")} style={{padding:"12px",borderRadius:12,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+          <button onClick={saveTxn} style={{padding:"12px",borderRadius:12,border:"none",background:C.brown,color:"#fff",fontWeight:700,cursor:"pointer"}}>บันทึก ✓</button>
+        </div>
+      </Card>
+    </div>
+  );
+
+  return (
+    <div>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+        <div>
+          <div style={{fontSize:14,fontWeight:700,color:C.brown}}>รวม {fmt(totalAmt)} บาท</div>
+          <div style={{fontSize:11,color:C.textLight}}>{filtered.length} รายการ</div>
+        </div>
+        <button onClick={()=>setView("add")} style={{padding:"8px 16px",borderRadius:20,border:"none",background:C.brown,color:"#fff",fontSize:13,fontWeight:700,cursor:"pointer"}}>＋ บันทึก</button>
+      </div>
+
+      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:6}}>
+        {["ทั้งหมด",...FARMS].map(f=>(
+          <button key={f} onClick={()=>setFilterFarm(f)} style={{padding:"4px 8px",borderRadius:8,border:"1.5px solid",fontSize:10,fontWeight:600,cursor:"pointer",borderColor:filterFarm===f?C.brown:C.greenMid,background:filterFarm===f?C.brown:C.white,color:filterFarm===f?C.white:C.textMid}}>{f==="ทั้งหมด"?"ทั้งฟาร์ม":f}</button>
+        ))}
+      </div>
+      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:10}}>
+        {["ทั้งหมด",...WELFARE_TYPES].map(t=>(
+          <button key={t} onClick={()=>setFilterType(t)} style={{padding:"4px 8px",borderRadius:8,border:"1.5px solid",fontSize:10,fontWeight:600,cursor:"pointer",borderColor:filterType===t?C.purple:C.greenMid,background:filterType===t?C.purple:C.white,color:filterType===t?C.white:C.textMid}}>{t==="ทั้งหมด"?"ทุกประเภท":t}</button>
+        ))}
+      </div>
+
+      {filtered.length===0&&<div style={{textAlign:"center",color:C.textLight,padding:30,fontSize:13}}>ยังไม่มีรายการสวัสดิการ</div>}
+      <div style={{display:"flex",flexDirection:"column",gap:8}}>
+        {filtered.map(t=>(
+          <Card key={t.id} style={{padding:"12px 14px"}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+              <div>
+                <div style={{fontWeight:700,fontSize:14,color:C.text}}>{t.empName}</div>
+                <div style={{fontSize:11,color:C.brown,fontWeight:600}}>{t.type}</div>
+                <div style={{fontSize:11,color:C.textMid,marginTop:2}}>{t.detail}</div>
+              </div>
+              <div style={{textAlign:"right",flexShrink:0}}>
+                <div style={{fontWeight:700,fontSize:16,color:C.brown}}>{fmt(t.total)} ฿</div>
+                <div style={{fontSize:10,color:C.textLight}}>{t.date}</div>
+              </div>
+            </div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:8,paddingTop:8,borderTop:`1px dashed ${C.greenMid}`}}>
+              <div style={{fontSize:10,color:C.textLight}}>
+                {t.qty} {t.unit} · อนุมัติโดย {t.approvedBy||"—"}
+                {t.note&&` · ${t.note}`}
+              </div>
+              {confirmDel===t.id?(
+                <div style={{display:"flex",gap:4}}>
+                  <button onClick={()=>{setTxns(p=>p.filter(x=>x.id!==t.id));setConfirmDel(null);}} style={{padding:"4px 8px",borderRadius:7,border:"none",background:C.red,color:"#fff",fontSize:10,fontWeight:700,cursor:"pointer"}}>ลบ</button>
+                  <button onClick={()=>setConfirmDel(null)} style={{padding:"4px 8px",borderRadius:7,border:`1px solid ${C.greenMid}`,background:C.white,color:C.textMid,fontSize:10,cursor:"pointer"}}>ยกเลิก</button>
+                </div>
+              ):(
+                <button onClick={()=>setConfirmDel(t.id)} style={{padding:"4px 8px",borderRadius:7,border:`1px solid ${C.red}`,background:C.redPale,color:C.red,fontSize:10,cursor:"pointer"}}>🗑️ ลบ</button>
+              )}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── DOCS TAB ─────────────────────────────────────────────────
+function DocsTab({docs, setDocs, employees, flagOf, daysUntil, docStatusColor}) {
+  const [view, setView]             = useState("list");
+  const [filterEmp, setFilterEmp]   = useState("ทั้งหมด");
+  const [filterType, setFilterType] = useState("ทั้งหมด");
+  const [confirmDel, setConfirmDel] = useState(null);
+  const emptyForm = {empId:"", empName:"", nationality:"ไทย", docType:DOC_TYPES[0], docNo:"", issueDate:"", expDate:"", photo:"", recorder:"", note:""};
+  const [form, setForm] = useState(emptyForm);
+
+  const empNames = [...new Set(docs.map(d=>d.empName))];
+
+  const filtered = docs.filter(d => {
+    if(filterEmp!=="ทั้งหมด" && d.empName!==filterEmp) return false;
+    if(filterType!=="ทั้งหมด" && d.docType!==filterType) return false;
+    return true;
+  }).sort((a,b) => daysUntil(a.expDate) - daysUntil(b.expDate));
+
+  const saveDoc = () => {
+    if(!form.empName||!form.docNo||!form.expDate) return;
+    setDocs(prev=>[{...form,id:Date.now(),time:new Date().toLocaleString("th-TH")},...prev]);
+    setForm(emptyForm); setView("list");
+  };
+
+  if(view==="add") return (
+    <div>
+      <button onClick={()=>setView("list")} style={{background:"none",border:"none",color:C.blue,fontWeight:700,fontSize:14,cursor:"pointer",padding:"0 0 14px"}}>← กลับ</button>
+      <SectionTitle icon="📄" title="เพิ่มเอกสาร" color={C.blue}/>
+      <Card>
+        <label style={LS}>พนักงาน</label>
+        <select value={form.empName} onChange={e=>{
+          const emp = employees.find(x=>x.name===e.target.value);
+          setForm({...form,empName:e.target.value,empId:emp?.empId||"",nationality:emp?.nationality||"ไทย"});
+        }} style={{...IS,marginBottom:8}}>
+          <option value="">-- เลือกพนักงาน --</option>
+          {employees.map(e=><option key={e.id} value={e.name}>{e.name} ({e.empId})</option>)}
+        </select>
+
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+          <div><label style={LS}>สัญชาติ</label><input value={form.nationality} readOnly style={{...IS,background:C.grayPale,color:C.textMid}}/></div>
+          <div>
+            <label style={LS}>ประเภทเอกสาร</label>
+            <select value={form.docType} onChange={e=>setForm({...form,docType:e.target.value})} style={IS}>
+              {DOC_TYPES.map(d=><option key={d}>{d}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <label style={LS}>เลขที่เอกสาร</label>
+        <input value={form.docNo} onChange={e=>setForm({...form,docNo:e.target.value})} placeholder="หมายเลขเอกสาร" style={{...IS,marginBottom:8}}/>
+
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
+          <div><label style={LS}>วันที่ออก</label><input type="date" value={form.issueDate} onChange={e=>setForm({...form,issueDate:e.target.value})} style={IS}/></div>
+          <div><label style={LS}>วันหมดอายุ *</label><input type="date" value={form.expDate} onChange={e=>setForm({...form,expDate:e.target.value})} style={IS}/></div>
+        </div>
+
+        <label style={LS}>URL รูปเอกสาร (Google Drive)</label>
+        <input value={form.photo} onChange={e=>setForm({...form,photo:e.target.value})} placeholder="https://drive.google.com/..." style={{...IS,marginBottom:8}}/>
+
+        <label style={LS}>ผู้บันทึก</label>
+        <input value={form.recorder} onChange={e=>setForm({...form,recorder:e.target.value})} placeholder="ชื่อผู้บันทึก" style={{...IS,marginBottom:8}}/>
+
+        <label style={LS}>หมายเหตุ</label>
+        <input value={form.note} onChange={e=>setForm({...form,note:e.target.value})} placeholder="บันทึกเพิ่มเติม" style={{...IS,marginBottom:14}}/>
+
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+          <button onClick={()=>setView("list")} style={{padding:"12px",borderRadius:12,border:`1.5px solid ${C.greenMid}`,background:C.white,color:C.textMid,cursor:"pointer"}}>ยกเลิก</button>
+          <button onClick={saveDoc} style={{padding:"12px",borderRadius:12,border:"none",background:C.blue,color:"#fff",fontWeight:700,cursor:"pointer"}}>บันทึก ✓</button>
+        </div>
+      </Card>
+    </div>
+  );
+
+  const urgentCount = docs.filter(d=>daysUntil(d.expDate)<30).length;
+
+  return (
+    <div>
+      {urgentCount>0&&(
+        <div style={{background:C.redPale,border:`1.5px solid ${C.red}44`,borderRadius:12,padding:"10px 14px",marginBottom:12}}>
+          <div style={{fontWeight:700,fontSize:13,color:C.red}}>🚨 เอกสารใกล้หมดอายุ {urgentCount} รายการ</div>
+          <div style={{fontSize:11,color:C.red,opacity:0.8,marginTop:2}}>กรุณาตรวจสอบและต่ออายุก่อนหมดกำหนด</div>
+        </div>
+      )}
+
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+        <div style={{fontSize:13,color:C.textMid}}>{filtered.length} เอกสาร</div>
+        <button onClick={()=>setView("add")} style={{padding:"8px 16px",borderRadius:20,border:"none",background:C.blue,color:"#fff",fontSize:13,fontWeight:700,cursor:"pointer"}}>＋ เพิ่มเอกสาร</button>
+      </div>
+
+      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:6}}>
+        {["ทั้งหมด",...empNames].map(n=>(
+          <button key={n} onClick={()=>setFilterEmp(n)} style={{padding:"4px 8px",borderRadius:8,border:"1.5px solid",fontSize:10,fontWeight:600,cursor:"pointer",borderColor:filterEmp===n?C.blue:C.greenMid,background:filterEmp===n?C.blue:C.white,color:filterEmp===n?C.white:C.textMid}}>{n==="ทั้งหมด"?"ทุกคน":n.split(" ")[0]}</button>
+        ))}
+      </div>
+      <div style={{display:"flex",gap:4,flexWrap:"wrap",marginBottom:10}}>
+        {["ทั้งหมด",...DOC_TYPES].map(t=>(
+          <button key={t} onClick={()=>setFilterType(t)} style={{padding:"4px 8px",borderRadius:8,border:"1.5px solid",fontSize:10,fontWeight:600,cursor:"pointer",borderColor:filterType===t?C.purple:C.greenMid,background:filterType===t?C.purple:C.white,color:filterType===t?C.white:C.textMid}}>{t==="ทั้งหมด"?"ทุกประเภท":t}</button>
+        ))}
+      </div>
+
+      {filtered.length===0&&<div style={{textAlign:"center",color:C.textLight,padding:30,fontSize:13}}>ยังไม่มีเอกสาร</div>}
+      <div style={{display:"flex",flexDirection:"column",gap:8}}>
+        {filtered.map(d=>{
+          const days = daysUntil(d.expDate);
+          const st = docStatusColor(days);
+          return (
+            <div key={d.id} style={{background:C.white,borderRadius:14,border:`1.5px solid ${st.color}55`,boxShadow:"0 2px 8px rgba(0,0,0,0.05)",overflow:"hidden"}}>
+              <div style={{background:st.bg,padding:"7px 14px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <div style={{fontSize:12,fontWeight:700,color:st.color}}>{st.icon} {st.label}</div>
+                <div style={{fontSize:10,color:st.color}}>หมด {d.expDate}</div>
+              </div>
+              <div style={{padding:"10px 14px"}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+                  <div>
+                    <div style={{fontWeight:700,fontSize:13,color:C.text}}>{d.empName} {flagOf(d.nationality)}</div>
+                    <div style={{fontSize:12,color:C.blue,fontWeight:600}}>{d.docType}</div>
+                    <div style={{fontSize:11,color:C.textMid,marginTop:2}}>เลขที่: {d.docNo}</div>
+                  </div>
+                  <div style={{textAlign:"right",fontSize:10,color:C.textLight,flexShrink:0}}>
+                    <div>รหัส: {d.empId}</div>
+                    {d.issueDate&&<div>ออก: {d.issueDate}</div>}
+                  </div>
+                </div>
+                {d.note&&<div style={{fontSize:10,color:C.textMid,marginTop:6,background:C.grayPale,borderRadius:6,padding:"4px 8px"}}>📝 {d.note}</div>}
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:8,paddingTop:6,borderTop:`1px dashed ${C.greenMid}`}}>
+                  <div style={{fontSize:10,color:C.textLight}}>บันทึกโดย {d.recorder||"—"}</div>
+                  {confirmDel===d.id?(
+                    <div style={{display:"flex",gap:4}}>
+                      <button onClick={()=>{setDocs(p=>p.filter(x=>x.id!==d.id));setConfirmDel(null);}} style={{padding:"4px 8px",borderRadius:7,border:"none",background:C.red,color:"#fff",fontSize:10,fontWeight:700,cursor:"pointer"}}>ลบ</button>
+                      <button onClick={()=>setConfirmDel(null)} style={{padding:"4px 8px",borderRadius:7,border:`1px solid ${C.greenMid}`,background:C.white,color:C.textMid,fontSize:10,cursor:"pointer"}}>ยกเลิก</button>
+                    </div>
+                  ):(
+                    <button onClick={()=>setConfirmDel(d.id)} style={{padding:"4px 8px",borderRadius:7,border:`1px solid ${C.red}`,background:C.redPale,color:C.red,fontSize:10,cursor:"pointer"}}>🗑️ ลบ</button>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─── ORG PAGE ────────────────────────────────────────────────
+function OrgPage({lang="th"}) {
+  const [tab, setTab]             = useState("emp");
+  const [employees, setEmployees] = useState(INIT_EMPLOYEES);
+  const [welfTxns, setWelfTxns]   = useState(INIT_WELFARE_TXN);
+  const [empDocs, setEmpDocs]     = useState(INIT_EMP_DOCS);
+
+  const flagOf = nat => ({"ไทย":"🇹🇭","เมียนมา":"🇲🇲","ลาว":"🇱🇦","กัมพูชา":"🇰🇭","เวียดนาม":"🇻🇳"}[nat]||"🌏");
+
+  const daysUntil = dateStr => {
+    if(!dateStr) return 9999;
+    const d = new Date(dateStr);
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    return Math.floor((d - now) / 86400000);
+  };
+
+  const docStatusColor = days => {
+    if(days < 0)  return {bg:C.redPale,   color:C.red,    label:"หมดอายุแล้ว", icon:"❌"};
+    if(days <= 7) return {bg:C.redPale,   color:C.red,    label:"ด่วน ≤7วัน",  icon:"🚨"};
+    if(days <= 15) return {bg:C.orangePale,color:C.orange, label:"ใกล้หมด ≤15วัน",icon:"⚠️"};
+    if(days <= 30) return {bg:"#FFFDE7",  color:"#C27A00", label:"เตือน ≤30วัน", icon:"⚠️"};
+    if(days <= 60) return {bg:"#FFFDE7",  color:"#C27A00", label:"ใกล้ครบ ≤60วัน",icon:"📅"};
+    return {bg:C.greenPale, color:C.green, label:"ปกติ", icon:"✅"};
+  };
+
+  const urgentDocs = empDocs.filter(d => daysUntil(d.expDate) < 30).length;
+
+  const TABS = [
+    {id:"emp",     icon:"👥", label:`พนักงาน (${employees.length})`},
+    {id:"welfare", icon:"💛", label:"สวัสดิการ"},
+    {id:"docs",    icon:"📄", label:urgentDocs>0?`เอกสาร 🚨${urgentDocs}`:"เอกสาร"},
+  ];
+
+  return (
+    <div>
+      <div style={{background:"linear-gradient(135deg,#1A3A8A,#2457C5)",margin:"-16px -16px 14px",padding:"18px 16px 14px",color:"#fff"}}>
+        <div style={{fontSize:11,opacity:0.75,marginBottom:2}}>Junkum Farm</div>
+        <div style={{fontFamily:"serif",fontSize:20,fontWeight:700}}>🏢 องค์กรและพนักงาน</div>
+        <div style={{fontSize:12,opacity:0.8,marginTop:2}}>พนักงาน {employees.length} คน · สวัสดิการ · เอกสารแรงงาน</div>
+      </div>
+
+      <div style={{display:"flex",gap:6,marginBottom:14,background:C.white,borderRadius:14,padding:4,boxShadow:"0 1px 6px rgba(0,0,0,0.07)"}}>
+        {TABS.map(t=>(
+          <button key={t.id} onClick={()=>setTab(t.id)} style={{
+            flex:1,padding:"9px 4px",borderRadius:10,border:"none",cursor:"pointer",
+            background:tab===t.id?"linear-gradient(135deg,#1A3A8A,#2457C5)":C.white,
+            color:tab===t.id?C.white:C.textMid,
+            fontSize:10,fontWeight:700,lineHeight:1.3,
+          }}>
+            {t.icon}<br/>{t.label}
+          </button>
+        ))}
+      </div>
+
+      {tab==="emp"     && <EmpTab employees={employees} setEmployees={setEmployees} flagOf={flagOf}/>}
+      {tab==="welfare" && <WelfareEmpTab txns={welfTxns} setTxns={setWelfTxns} employees={employees}/>}
+      {tab==="docs"    && <DocsTab docs={empDocs} setDocs={setEmpDocs} employees={employees} flagOf={flagOf} daysUntil={daysUntil} docStatusColor={docStatusColor}/>}
+    </div>
+  );
+}
+
 
 // ─── ROOT APP ────────────────────────────────────────────────
 export default function App() {
